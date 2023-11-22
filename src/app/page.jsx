@@ -38,11 +38,16 @@ export default function Home() {
     }
   }
   return (
+<<<<<<< HEAD
     <main className="p-4">
        <div>
       {/* <button onClick={signInWithGoogle}>Sign in with Google</button> */}
       <input type="file" onChange={handleFileUpload} />
       {message && <p>{message}</p>} {/* Display feedback message */}
+=======
+    <div>
+      <button onClick={signInWithGoogle}>Sign in with Google</button>
+>>>>>>> da5d2486a5abc4761057ef4d1c8d9fcdc97a4669
     </div>
     </main>
   )

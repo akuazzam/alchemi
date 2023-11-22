@@ -12,10 +12,14 @@
     "@azure/ai-form-recognizer": "^5.0.0",
     "@azure/identity": "^4.0.0",
     "firebase": "^10.6.0",
+<<<<<<< HEAD
     "formidable": "^3.5.1",
     "multer": "^1.4.5-lts.1",
     "next": "14.0.3",
     "next-connect": "^1.0.0",
+=======
+    "next": "^14.0.3",
+>>>>>>> da5d2486a5abc4761057ef4d1c8d9fcdc97a4669
     "react": "^18.2.0",
     "react-dom": "^18",
     "realm-web": "^2.0.0"

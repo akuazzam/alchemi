@@ -33,7 +33,6 @@ const signInWithGoogle = async () => {
   } catch (error) {
     console.error("Error during Google sign-in: ", error);
   }
-  console.log("called")
 };
 
 /*const signInWithMicrosoft = async () => {

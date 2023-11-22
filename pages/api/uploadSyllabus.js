@@ -1,62 +1,55 @@
-import { getStorage, ref, uploadBytes, getDownloadURL, deleteObject } from "firebase/storage";
-import { app } from '../../src/app/utils/mongodb_config';
-import extractText from './extractText';
 import multer from 'multer';
 
-const upload = multer({ storage: multer.memoryStorage() });
+// Set up multer to store files in memory
+const storage = multer.memoryStorage();
+const upload = multer({ storage });
 
-// A middleware for handling multipart/form-data
-const runMiddleware = (req, res, fn) => {
-  return new Promise((resolve, reject) => {
-    fn(req, res, (result) => {
-      if (result instanceof Error) {
-        return reject(result);
-      }
-      return resolve(result);
-    });
-  });
-};
-
-export default async function handler(req, res) {
-  if (req.method === 'POST') {
-    // Run the middleware
-    await runMiddleware(req, res, upload.single('file'));
-
-    try {
-      // Now req.file is the file
-      const fileBuffer = req.file.buffer;
-      const fileName = req.file.originalname;
-
-      const storage = getStorage(app);
-      const uniqueFileName = `${Date.now()}-${fileName}`;
-      const storageRef = ref(storage, `uploads/${uniqueFileName}`);
-
-      // Upload the file
-      await uploadBytes(storageRef, fileBuffer);
-
-      // Get download URL
-      const downloadURL = await getDownloadURL(storageRef);
-
-      // Process the file with Azure
-      const azureResult = await extractText(downloadURL);
-
-      // Delete the file after processing
-      await deleteObject(storageRef);
-
-      return res.status(200).json(azureResult);
-    } catch (error) {
-      console.error("Error:", error);
-      return res.status(500).json({ error: "Error in file processing" });
-    }
-  } else {
-    // Handle any non-POST requests
-    res.setHeader('Allow', ['POST']);
-    res.status(405).end(`Method ${req.method} Not Allowed`);
-  }
+// Mock implementation of the file parsing function
+async function parseFile(fileBuffer) {
+  // Replace with your actual file parsing logic
+  return { content: 'Parsed file content' };
 }
 
-export const config = {
-  api: {
-    bodyParser: false,
-  },
-};
+// Mock implementation of the file deletion function
+async function deleteFile(fileId) {
+  // Replace with your actual file deletion logic
+  console.log(`Deleted file with ID: ${fileId}`);
+}
+
+export default function handler(req, res) {
+  if (req.method === 'POST') {
+    // Use multer to handle the file upload in the request
+    upload.single('file')(req, res, async (err) => {
+      if (err) {
+        // Handle multer-specific errors
+        return res.status(500).json({ error: err.message });
+      }
+
+      if (!req.file) {
+        // No file was sent with the request
+        return res.status(400).json({ error: 'No file provided' });
+      }
+
+      try {
+        // Use the buffer of the uploaded file
+        const fileBuffer = req.file.buffer;
+
+        // Parse the file
+        const parsedData = await parseFile(fileBuffer);
+
+        // Delete the file after parsing
+        // If you are storing the file somewhere, you would pass the identifier to deleteFile
+        await deleteFile(req.file.id);
+
+        // Send the parsed data back in the response
+        res.status(200).json({ parsedData });
+      } catch (error) {
+        res.status(500).json({ error: error.message });
+      }
+    });
+  } else {
+    // Method not allowed if it's not a POST request
+    res.setHeader('Allow', ['POST']);
+    res.status(405).end('Method Not Allowed');
+  }
+}

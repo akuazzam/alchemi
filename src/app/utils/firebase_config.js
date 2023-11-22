@@ -1,7 +1,6 @@
 import { initializeApp } from 'firebase/app';
 import { getFirestore } from 'firebase/firestore';
-import { getAuth, GoogleAuthProvider, OAuthProvider, signInWithPopup } from 'firebase/auth';
-
+import { getAuth, GoogleAuthProvider, OAuthProvider } from 'firebase/auth';
 
 const firebaseConfig = {
   apiKey: "AIzaSyBBGfZyAieFj_V2_7-S6eGhwodRoqvXiBI",
@@ -12,10 +11,11 @@ const firebaseConfig = {
   appId: "1:346110977609:web:83e1973d1cf25ca649c198",
   measurementId: "G-BX6H49ZZ83"
 };
+
 const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
 const auth = getAuth(app);
 const googleProvider = new GoogleAuthProvider();
 const microsoftProvider = new OAuthProvider('microsoft.com');
 
-export { auth, db, googleProvider, microsoftProvider };
+export { app, auth, db, googleProvider, microsoftProvider };

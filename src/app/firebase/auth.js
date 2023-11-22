@@ -1,5 +1,5 @@
 import { signInWithPopup } from 'firebase/auth';
-import { auth, db, googleProvider, microsoftProvider } from '../utils/firebase_config';
+import { auth, db, googleProvider, microsoftProvider } from '../utils/mongodb_config';
 
 import { doc, setDoc, getDoc, collection } from 'firebase/firestore';
 

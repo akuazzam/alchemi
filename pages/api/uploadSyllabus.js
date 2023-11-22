@@ -1,5 +1,5 @@
 import { getStorage, ref, uploadBytes, getDownloadURL, deleteObject } from "firebase/storage";
-import { app } from '../../src/app/utils/firebase_config';
+import { app } from '../../src/app/utils/mongodb_config';
 import extractText from './extractText';
 import multer from 'multer';
 

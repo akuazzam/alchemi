@@ -1,8 +1,8 @@
 "use client"
 import React from 'react';
 import { signInWithGoogle } from "./firebase/auth"
-import Dashboard from "./components/dashboard/dash"
-import LoginPage from "./components/login/login"
+import Dashboard from "./components/dashboard/page"
+import LoginPage from "./components/login/page"
 
 const Home = () => {
   return (

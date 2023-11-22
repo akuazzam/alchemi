@@ -3,7 +3,7 @@ import Navbar from "../Ui/dashboard/navbar/navbar"
 
 const Layout = ({children})=>{
     return (
-        <div>
+        <div className={styles.contaier}>
             <div>
                 <Sidebar/>
             </div>

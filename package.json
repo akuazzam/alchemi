@@ -17,7 +17,6 @@
     "react-icons": "^4.12.0"
 =======
     "react-icons": "^4.11.0"
->>>>>>> b5f4cf4f08ff8191da7a4049155655ee5fd99d94
   },
   "devDependencies": {
     "autoprefixer": "^10.0.1",

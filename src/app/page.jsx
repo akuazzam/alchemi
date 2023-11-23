@@ -4,7 +4,7 @@ import { signInWithGoogle } from "./firebase/auth"
 import Dashboard from "./components/dashboard/page"
 import LoginPage from "./components/login/page"
 import Navbar from './components/Ui/dashboard/navbar/navbar';
- 
+
 const Home = () => {
   return (
     <div>
@@ -14,5 +14,5 @@ const Home = () => {
     </div>
   );
 };
- 
+
 export default Home;

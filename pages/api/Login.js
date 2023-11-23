@@ -9,6 +9,7 @@ export default async function handler(req, res) {
     try {
       const user = await app.logIn(credentials);
       // You might want to create a session token or perform other server-side logic here
+      res.setHeader('Set-Cookie', `sessionToken=${user.accessToken}; HttpOnly`);
       return res.status(200).json({ message: 'Successfully logged in', userId: user.id });
     } catch (error) {
       return res.status(401).json({ error: error.message });

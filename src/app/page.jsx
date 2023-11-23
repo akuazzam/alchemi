@@ -1,13 +1,13 @@
 "use client"
 import React from 'react';
-import { signInWithGoogle } from "./firebase/auth"
+import Dashboard from "./components/dashboard/page"
+import Navbar from './components/Ui/dashboard/navbar/navbar';
+import LoginPage from './components/login/page';
 
-const Login = () => {
+const Home = () => {
   return (
-    <div>
-      <button onClick={signInWithGoogle}>Sign in with Google</button>
-    </div>
+  <LoginPage/>
   );
 };
 
-export default Login;
+export default Home;

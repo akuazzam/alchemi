@@ -1,10 +1,14 @@
-.container{
+.container {
     display: flex;
 }
 
-.menu{
-    flex:1
+.menu {
+    flex: 1;
+    background-color: var(--bgSoft);
+    padding: 20px;
 }
-.content{
-    flex:4
+
+.content {
+    flex: 4;
+    padding: 20px;
 }

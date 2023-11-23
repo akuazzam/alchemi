@@ -16,6 +16,7 @@ export default function Upload() {
 
     const data = await response.json();
     setResult(data);
+    setFile(null)
   };
 
   return (

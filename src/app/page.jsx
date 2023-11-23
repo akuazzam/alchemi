@@ -1,5 +1,6 @@
 "use client"
 import React, { useState } from 'react';
+import Upload from './components/fileUpload';
 
 
 export default function Home() {
@@ -43,7 +44,7 @@ export default function Home() {
       {/* <button onClick={signInWithGoogle}>Sign in with Google</button> */}
       {/* <input type="file" onChange={handleFileUpload} />
       {message && <p>{message}</p>} Display feedback message */}
-   
+   <Upload/>
     </div>
     </main>
   )

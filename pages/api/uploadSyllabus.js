@@ -1,55 +1,82 @@
-import multer from 'multer';
+// pages/api/upload.js
+import { createRouter } from "next-connect";
+import multer from "multer";
+import fs from "fs";
+import {
+  AzureKeyCredential,
+  DocumentAnalysisClient,
+} from "@azure/ai-form-recognizer";
 
-// Set up multer to store files in memory
-const storage = multer.memoryStorage();
-const upload = multer({ storage });
+// Initialize multer with a temporary storage for uploaded files
+const upload = multer({ dest: "/tmp/uploads/" });
 
-// Mock implementation of the file parsing function
-async function parseFile(fileBuffer) {
-  // Replace with your actual file parsing logic
-  return { content: 'Parsed file content' };
-}
+// Initialize the router
+const router = createRouter();
 
-// Mock implementation of the file deletion function
-async function deleteFile(fileId) {
-  // Replace with your actual file deletion logic
-  console.log(`Deleted file with ID: ${fileId}`);
-}
-
-export default function handler(req, res) {
-  if (req.method === 'POST') {
-    // Use multer to handle the file upload in the request
-    upload.single('file')(req, res, async (err) => {
-      if (err) {
-        // Handle multer-specific errors
-        return res.status(500).json({ error: err.message });
-      }
-
-      if (!req.file) {
-        // No file was sent with the request
-        return res.status(400).json({ error: 'No file provided' });
-      }
-
-      try {
-        // Use the buffer of the uploaded file
-        const fileBuffer = req.file.buffer;
-
-        // Parse the file
-        const parsedData = await parseFile(fileBuffer);
-
-        // Delete the file after parsing
-        // If you are storing the file somewhere, you would pass the identifier to deleteFile
-        await deleteFile(req.file.id);
-
-        // Send the parsed data back in the response
-        res.status(200).json({ parsedData });
-      } catch (error) {
-        res.status(500).json({ error: error.message });
-      }
-    });
-  } else {
-    // Method not allowed if it's not a POST request
-    res.setHeader('Allow', ['POST']);
-    res.status(405).end('Method Not Allowed');
+// Define the API route for file upload and processing
+router.post(upload.single("file"), async (req, res) => {
+  if (!req.file) {
+    return res.status(400).json({ error: "No file uploaded." });
   }
-}
+
+  // Read the file from the temporary storage
+  const fileBuffer = await fs.promises.readFile(req.file.path);
+
+  // Initialize Azure DocumentAnalysisClient with your credentials
+  const endpoint = process.env.AZURE_FORM_RECOGNIZER_ENDPOINT;
+  const credential = new AzureKeyCredential(
+    process.env.AZURE_FORM_RECOGNIZER_KEY
+  );
+  const client = new DocumentAnalysisClient(endpoint, credential);
+
+  try {
+    // Call Azure service using the file buffer
+    const poller = await client.beginAnalyzeDocument("Alchemi3", fileBuffer);
+    const result = await poller.pollUntilDone();
+    // Extract specific fields from the result, set to null if not present
+    const extractedData = {
+      CourseDescription:
+        result.documents[0].fields.CourseDescription?.value || null,
+      CourseContentAndLearningObjectives:
+        result.documents[0].fields["Course Content and Learning Objectives"]
+          ?.value || null,
+      RequiredLectureTextbook:
+        result.documents[0].fields["Required Lecture Textbook"]?.value || null,
+    };
+
+    // Respond with the extracted fields
+    res.status(200).json({ extractedData });
+
+    // Cleanup: delete the temporary file
+    await fs.promises.unlink(req.file.path);
+  } catch (error) {
+    console.error("An error occurred:", error);
+    res
+      .status(500)
+      .json({ error: "An error occurred while processing the document." });
+
+    // Attempt to cleanup even in case of failure
+    try {
+      await fs.promises.unlink(req.file.path);
+    } catch (cleanupError) {
+      console.error("Failed to delete temporary file:", cleanupError);
+    }
+  }
+});
+
+// Export the route handler with additional Next.js configuration
+export default router.handler({
+  onError: (err, req, res, next) => {
+    console.error(err.stack);
+    res.status(500).end("Internal Server Error");
+  },
+  onNoMatch: (req, res) => {
+    res.status(404).end("API route not found");
+  },
+});
+
+export const config = {
+  api: {
+    bodyParser: false,
+  },
+};

@@ -1,6 +1,6 @@
 const Navbar = ()=>{
     return (
-        <div>Navbar</div>
+        <div className={styles.container}>Navbar</div>
     )
 }
 export default Navbar

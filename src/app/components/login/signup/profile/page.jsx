@@ -65,6 +65,10 @@ const ProfileCreation = () => {
 
 
   return (
+    <div>
+    <header className={styles.header}>
+    <div className={styles.brandName}>Alchemi</div>
+  </header>
     <div className={styles.container}>
       <form className={styles.form} onSubmit={handleSubmit}>
         <h1>Create Your Profile</h1>

@@ -1,9 +1,7 @@
 "use client"
-import MenuLink from "./menuLink/menuLink";
-import styles from "./sidebar.module.css";
+import MenuLink from "./courses-menu/courses-menu";
+import styles from "./courses-sidebar.module.css";
 import Image from "next/image";
-import { useState, useEffect } from "react";
-import { useRouter } from 'next/navigation';
 
 import {
     MdDashboard,
@@ -15,18 +13,11 @@ import {
   MdPeople,
   MdOutlineSettings,
   MdHelpCenter,
-  MdLogout,MdOutlineSchool ,MdQuickreply,
- 
-  
+  MdLogout,
 } from "react-icons/md";
-import { IoIosNotifications } from "react-icons/io";
-import { FaRegCalendarCheck,FaUserGraduate, } from "react-icons/fa";
-import { GrInProgress } from "react-icons/gr";
-import { SiAlchemy } from "react-icons/si";
 const menuItems = [
-
     {
-      title: "Home Page",
+      title: "Pages",
       list: [
         {
           title: "Dashboard",
@@ -34,19 +25,19 @@ const menuItems = [
           icon: <MdDashboard />,
         },
         {
-          title: "User",
+          title: "Users",
           path: "/dashboard/users",
-          icon: <FaUserGraduate />,
+          icon: <MdSupervisedUserCircle />,
         },
         {
-          title: "Courses",
+          title: "Products",
           path: "/dashboard/products",
-          icon: <MdOutlineSchool />,
+          icon: <MdShoppingBag />,
         },
         {
-          title: "Notifications",
+          title: "Transactions",
           path: "/dashboard/transactions",
-          icon: <IoIosNotifications />,
+          icon: <MdAttachMoney />,
         },
       ],
     },
@@ -54,24 +45,24 @@ const menuItems = [
       title: "Progress",
       list: [
         {
-          title: "Progress Tracker",
+          title: "Revenue",
           path: "/dashboard/revenue",
-          icon: <GrInProgress />,
+          icon: <MdWork />,
         },
         {
-          title: "Announcments",
+          title: "Reports",
           path: "/dashboard/reports",
-          icon: <MdQuickreply />,
+          icon: <MdAnalytics />,
         },
         {
-          title: "Calendar",
+          title: "Teams",
           path: "/dashboard/teams",
-          icon:<FaRegCalendarCheck />,
+          icon: <MdPeople />,
         },
       ],
     },
     {
-      title: "About",
+      title: "User",
       list: [
         {
           title: "Settings",
@@ -89,34 +80,13 @@ const menuItems = [
 
 
 const Sidebar = ()=>{
-  const [user, setUser] = useState({ name: "Loading..." });
-  const router = useRouter();
-
-  useEffect(() => {
-    const fetchUserData = async () => {
-      try {
-        const response = await fetch('/api/getUser');
-        if (!response.ok) {
-          throw new Error('Failed to fetch user');
-        }
-        const userData = await response.json();
-        setUser({ name: userData.name, title: userData.title || 'User' });
-      } catch (error) {
-        console.error('Error fetching user:', error);
-      }
-    };
-
-    fetchUserData();
-  }, []);
-
     return (
         <div className = {styles.container}>
-          <span className = {styles.userHeader}>Alchemi</span>
             <div className = {styles.user}>
                 <Image className = {styles.userImage} src="/noavatar.png" alt="" width="50" height="50"/>
                 <div className = {styles.userDetail}>
-                <span className = {styles.userTitle}>Welcome</span>
-                    <span className = {styles.username}>{user.name}</span>
+                    <span className = {styles.username}>Champagne Papi</span>
+                    <span className = {styles.userTitle}>Student</span>
                 </div>
             </div>
             <ul className={styles.list}>
@@ -129,11 +99,8 @@ const Sidebar = ()=>{
                     </li>
                 ))}
             </ul>
-            <button className={styles.logout}>
-            <MdLogout /> Logout
-
-</button>
-
+            <button className={styles.logout}>Logout</button>
+            <MdLogout />
         </div>
     )
 }

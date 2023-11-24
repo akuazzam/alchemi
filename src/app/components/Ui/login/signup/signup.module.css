@@ -1,9 +1,33 @@
+.pageContainer {
+    position: relative;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+  
+.header {
+    position: absolute;
+    top: 0;
+    left: 0;
+    padding: 20px;
+}
+  
+.brandName {
+    font-size: 1.5rem;
+    font-weight: bold;
+    /* Add additional styling as needed */
+}
+
 .container {
     width: 100%;
     height: 100vh;
     display: flex;
     align-items: center;
     justify-content: center;
+    position: relative; /* Added so that it stacks on top of the pageContainer */
+    z-index: 1; /* Ensure it's above the header layer */
 }
 
 .form{

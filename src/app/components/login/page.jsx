@@ -34,15 +34,30 @@ export default function LoginPage() {
     }
   };
   return (
+    <div className={styles.pageContainer}>
+      <header className={styles.header}>
+        <div className={styles.brandName}>Alchemi</div>
+      </header>
       <div className={styles.container}>
         <form onSubmit={handleSubmit} className={styles.form}>
           <h1>Login</h1>
-          <input type="email" placeholder="Email" value={email} onChange={(e) => setEmail(e.target.value)} />
-          <input type="password" placeholder="Password" value={password} onChange={(e) => setPassword(e.target.value)} />
+          <input
+            type="email"
+            placeholder="Email"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+          />
+          <input
+            type="password"
+            placeholder="Password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+          />
           <button type="submit">Login</button>
           <Link href="/components/login/signup">Don't have an account? Sign Up here!</Link>
         </form>
       </div>
-    );
+    </div>
+  );
   }
 

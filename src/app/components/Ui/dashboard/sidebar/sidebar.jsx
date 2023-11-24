@@ -84,8 +84,8 @@ const Sidebar = ()=>{
             <div className = {styles.user}>
                 <Image className = {styles.userImage} src="/noavatar.png" alt="" width="50" height="50"/>
                 <div className = {styles.userDetail}>
-                    <span className = {styles.username}>Abel Kassa</span>
-                    <span className = {styles.userTitle}>Administrator</span>
+                    <span className = {styles.username}>Champagne Papi</span>
+                    <span className = {styles.userTitle}>Student</span>
                 </div>
             </div>
             <ul className={styles.list}>

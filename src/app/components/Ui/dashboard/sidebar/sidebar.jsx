@@ -40,7 +40,7 @@ const menuItems = [
         },
       ],
     },
-    {
+   /* {
       title: "Progress",
       list: [
         {
@@ -59,7 +59,7 @@ const menuItems = [
           icon: <MdPeople />,
         },
       ],
-    },
+    },*/
     {
       title: "User",
       list: [

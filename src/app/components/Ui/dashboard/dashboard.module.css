@@ -1,86 +1,124 @@
 .container {
     display: flex;
-}
- 
+  }/* Styling for the menu section */
 .menu {
     flex: 1;
-    background-color: var(--bgSoft);
-    padding: 20px;
-}
- 
-.content {
+    background-color: var(--bgSoft); /* Set background color using a variable */
+    padding: 20px; /* Add padding for spacing inside the menu */
+  }
+  
+  /* Styling for the content section */
+  .content {
     flex: 4;
-    padding: 20px;
-}
- 
-/* Style for the 'Add Course' circular button */
-.addCourseButton {
+    padding: 20px; /* Add padding for spacing inside the content */
+  }
+  
+  /* Styling for the dashboard grid */
+  .dashboard {
+    display:grid;
+    grid-template-columns: repeat(3, 1fr); /* 2 columns with equal width */
+    gap: 16px; /* Set gap between grid items */
+    max-width: 100%; /* Ensure the grid doesn't exceed the available width */
+  }
+  
+  /* Styling for individual cards in the dashboard */
+  .card {
+    background-color: #ffffff; /* White background for cards */
+    border-radius: 10px; /* Rounded corners for cards */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Shadow for depth effect */
+    cursor: pointer; /* Change cursor on hover */
+    transition: transform 0.3s; /* Smooth scaling transition on hover */
+    overflow: hidden; /* Hide overflowing content */
+  }
+  
+  .card:hover {
+    transform: scale(1.05); /* Slightly scale up on hover */
+  }
+  
+  .cardImage {
+    width: 100%; /* Make image fill the entire width of the card */
+    height: 150px; /* Adjusted height, maintain aspect ratio if needed */
+    object-fit: cover; /* Ensure the image covers the entire card */
+    border-top-left-radius: 10px; /* Rounded corners for top of the image */
+    border-top-right-radius: 10px; /* Rounded corners for top of the image */
+  }
+  
+  .cardTitle {
+    position: absolute; /* Position text absolutely within the card */
+    bottom: 0; /* Place at the bottom */
+    left: 0; /* Align to the left */
+    width: 100%; /* Take up full width */
+    text-align: center; /* Center-align text */
+    font-size: 1rem; /* Set font size */
+    color: #fff; /* White text color */
+    background-color: rgb(255, 247, 247); /* Semi-transparent black background */
+    padding: 10px; /* Add padding for spacing inside the title */
+    margin: 0; /* Remove margin to ensure clean layout */
+    border-bottom-left-radius: 10px; /* Rounded corners for bottom of the title */
+    border-bottom-right-radius: 10px; /* Rounded corners for bottom of the title */
+  }
+  
+  /* Styling for the "Add Course" button */
+  .addCourseButton {
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    margin: 16px;
-    background-color: #ffffff; /* Change to match your design */
-    border-radius: 10px; /* Adjust the radius to make it more rectangular */
-    width: 120px; /* Adjust the width to make it a rectangle */
-    height: 80px; /* Adjust the height to make it a rectangle */    
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Optional: Shadow for depth */
-    cursor: pointer;
-    transition: transform 0.3s;
-}
- 
-.addCourseButton:hover {
-    transform: scale(1.4); /* Slight zoom effect on hover */
-}
- 
-/* Style for the plus icon inside the button */
-.plusIcon {
-    font-size: 2rem; /* Size of the plus sign */
-    color: #333; /* Color of the plus sign */
-}
- 
-/* Style for the text below the plus icon */
-.addCourseText {
-    font-size: 0.8rem; /* Size of the text */
-    color: #333; /* Color of the text */
-    margin-top: 4px; /* Space between icon and text */
-}
-   
+    background-color: var(--bg);/*rgb(36, 124, 118);  Green background color */
+    color: #fff; /* White text color */
+    border-radius: 10px; /* Rounded corners for the button */
+    /*box-shadow: 0 4px 8px rgba(22, 5, 5, 0.2); /* Increased shadow for depth effect */
+    cursor: pointer; /* Change cursor on hover */
+    transition: transform 0.3s; /* Smooth scaling transition on hover */
+  }
+  
+  .addCourseButton:hover {
+    transform: scale(1.1); /* Slightly scale up on hover */
+  }
+  
+  .plusIcon {
+    font-size: 3rem; /* Set font size for the plus icon */
+  }
+  
+  .addCourseText {
+    font-size: 1rem; /* Set font size for the text below the plus icon */
+    margin-top: 8%; /* Add margin for spacing between icon and text */
+  }
+  
+  /* Styling for the modal overlay */
   .modal {
-    position: fixed;
+    position: fixed; /* Fix position relative to the viewport */
     top: 0;
     left: 0;
     right: 0;
     bottom: 0;
-    background: rgba(0, 0, 0, 0.5);
+    background: rgba(0, 0, 0, 0.5); /* Semi-transparent black background */
     display: flex;
     align-items: center;
     justify-content: center;
   }
-   
+  
+  /* Styling for the content inside the modal */
   .modalContent {
-    background: white;
-    padding: 20px;
-    border-radius: 10px;
+    background: white; /* White background for modal content */
+    padding: 20px; /* Add padding for spacing inside the modal content */
+    border-radius: 10px; /* Rounded corners for the modal content */
     display: flex;
     flex-direction: column;
   }
-   
+  
   .modalContent h2 {
-    margin-top: 0;
+    margin-top: 0; /* Remove top margin for the heading */
   }
-   
+  
   .modalContent input {
-    margin-bottom: 10px;
-    padding: 10px;
-    font-size: 1rem;
-    border: 1px solid #ccc;
-    border-radius: 4px;
+    margin-bottom: 10px; /* Add bottom margin for spacing between inputs */
+    padding: 10px; /* Add padding for spacing inside the inputs */
+    font-size: 1rem; /* Set font size for the inputs */
+    border: 1px solid #ccc; /* Add a border to the inputs */
+    border-radius: 4px; /* Rounded corners for the inputs */
   }
-   
+  
   .modalContent button {
-    padding: 10px 20px;
-    margin-right: 10px;
-    font-size: 1rem;
-    cursor: pointer;
-  }
+    padding: 20px;
+  }  

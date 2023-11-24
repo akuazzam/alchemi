@@ -1,6 +1,7 @@
 .container {
     display: flex;
   }/* Styling for the menu section */
+
 .menu {
     flex: 1;
     background-color: var(--bgSoft); /* Set background color using a variable */

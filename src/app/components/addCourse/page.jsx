@@ -1,5 +1,7 @@
+"use client"
 import { useState } from 'react';
 import styles from './Upload.module.css';
+import {useRouter} from 'next/navigation';
 
 export default function Upload() {
   const [file, setFile] = useState(null);
@@ -28,6 +30,7 @@ export default function Upload() {
     }
     setFile(null);
   };
+  const router = useRouter();
 
   const handleCourseSubmit = async (e) => {
     e.preventDefault();
@@ -48,6 +51,8 @@ export default function Upload() {
   
       const result = await response.json();
       console.log('Course created successfully:', result);
+      router.push('/components/dashboard'); // Replace '/path-to-dashboard' with the actual path
+
       // Handle successful response here (e.g., show a success message, clear form, etc.)
     } catch (error) {
       console.error('Failed to create course:', error);

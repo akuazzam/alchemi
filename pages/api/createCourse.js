@@ -1,6 +1,8 @@
 import * as Realm from 'realm-web';
 import { connectToDatabase } from '@/app/utils/mongodb_config';
 import Course from '../../models/Cousre';
+import { ObjectId } from 'mongodb'; // Add this line to import ObjectId
+
 
 export default async function handler(req, res) {
   if (req.method !== 'POST') {
@@ -33,6 +35,16 @@ export default async function handler(req, res) {
     createdBy: userId
   });
 
-  await db.collection('courses').insertOne(newCourse);
-  res.status(201).json({ message: 'Course created successfully' });
+  const courseCreationResult = await db.collection('courses').insertOne(newCourse);
+  const courseId = courseCreationResult.insertedId;
+
+  const objectId = new ObjectId(userId);
+
+  // Update the user's 'coursesEnrolled' field to include the new course
+  await db.collection('users').updateOne(
+    { user: objectId }, // Make sure to convert userId to ObjectID if necessary
+    { $push: { coursesEnrolled: courseId } }
+  );
+
+  res.status(201).json({ message: 'Course created successfully', courseId: courseId });
 }

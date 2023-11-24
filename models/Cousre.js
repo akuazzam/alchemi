@@ -8,10 +8,14 @@ const courseSchema = new Schema({
   BookName: String,
   Content: String,
   Summary: String,
+  createdBy: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'User'
+  },
   Quizzes: [{ type: Schema.Types.ObjectId, ref: 'Quiz' }],
   QuizAttempts: [{ type: Schema.Types.ObjectId, ref: 'QuizAttempt' }],
   Chapters: [{ type: Schema.Types.ObjectId, ref: 'Chapter' }]
 });
 
-const Course = mongoose.model('Course', courseSchema);
+const Course = mongoose.models.Course || mongoose.model('Course', courseSchema);
 module.exports = Course;

@@ -7,5 +7,6 @@ const userSchema = new Schema({
   coursesEnrolled: [{ type: Schema.Types.ObjectId, ref: 'Course' }]
 });
 
-const User = mongoose.model('User', userSchema);
+const User = mongoose.models.User ||mongoose.model('User', userSchema);
+
 module.exports = User;

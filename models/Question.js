@@ -11,6 +11,6 @@ const questionSchema = new Schema({
   chapter_id: { type: Schema.Types.ObjectId, ref: 'Chapter' },
 });
 
-const Question = mongoose.model('Question', questionSchema);
+const Question = mongoose.models.Question ||mongoose.model('Question', questionSchema);
 
 module.exports = Question;

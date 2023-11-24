@@ -26,9 +26,10 @@ const Dashboard = () => {
 <h3 className={styles.cardTitle}>{course.title}</h3>
 </div>
       ))}
-<button className={styles.addButton} onClick={() => setShowAddCourse(true)}>
-        Add Course
-</button>
+<div className={styles.addCourseButton} onClick={() => setShowAddCourse(true)}>
+<div className={styles.plusIcon}>+</div>
+<div className={styles.addCourseText}>Add Courses</div>
+</div>
  
       {showAddCourse && (
 <div className={styles.modal}>
@@ -57,4 +58,4 @@ const Dashboard = () => {
   );
 };
  
-export default Dashboard
+export default Dashboard;

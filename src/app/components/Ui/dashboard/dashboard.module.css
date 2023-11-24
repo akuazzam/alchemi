@@ -1,23 +1,50 @@
 .container {
     display: flex;
 }
-
+ 
 .menu {
     flex: 1;
     background-color: var(--bgSoft);
     padding: 20px;
 }
-
+ 
 .content {
     flex: 4;
     padding: 20px;
 }
-.addButton {
+ 
+/* Style for the 'Add Course' circular button */
+.addCourseButton {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
     margin: 16px;
-    padding: 10px 20px;
-    font-size: 1rem;
+    background-color: #ffffff; /* Change to match your design */
+    border-radius: 10px; /* Adjust the radius to make it more rectangular */
+    width: 120px; /* Adjust the width to make it a rectangle */
+    height: 80px; /* Adjust the height to make it a rectangle */    
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Optional: Shadow for depth */
     cursor: pointer;
-  }
+    transition: transform 0.3s;
+}
+ 
+.addCourseButton:hover {
+    transform: scale(1.4); /* Slight zoom effect on hover */
+}
+ 
+/* Style for the plus icon inside the button */
+.plusIcon {
+    font-size: 2rem; /* Size of the plus sign */
+    color: #333; /* Color of the plus sign */
+}
+ 
+/* Style for the text below the plus icon */
+.addCourseText {
+    font-size: 0.8rem; /* Size of the text */
+    color: #333; /* Color of the text */
+    margin-top: 4px; /* Space between icon and text */
+}
    
   .modal {
     position: fixed;

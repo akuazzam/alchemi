@@ -41,7 +41,7 @@ const menuItems = [
       ],
     },
     {
-      title: "Analytics",
+      title: "Progress",
       list: [
         {
           title: "Revenue",

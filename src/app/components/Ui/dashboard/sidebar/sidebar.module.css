@@ -71,3 +71,12 @@
 .logout:hover{
   background-color: red;
 }
+.logout {
+  
+  display: flex;
+  align-items: center;
+}
+
+.logout > svg {
+  margin-left: 5px; 
+}

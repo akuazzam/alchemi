@@ -1,9 +1,32 @@
+.pageContainer {
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+  
+.header {
+    position: absolute;
+    top: 0;
+    left: 0;
+    padding: 20px;
+}
+  
+.brandName {
+    font-size: 1.5rem; /* Adjust the size as needed */
+    font-weight: bold; /* Optional: if you want the brand name to be bold */
+    /* Add any other styling as required for your brand */
+}
+
 .container {
     width: 100%;
     height: 100vh;
     display: flex;
     align-items: center;
     justify-content: center;
+    position: relative; /* Added so that it stacks on top of the pageContainer */
+    z-index: 1; /* Ensure it's above the header layer */
 }
 
 .form{

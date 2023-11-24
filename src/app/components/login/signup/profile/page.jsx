@@ -37,32 +37,37 @@ const ProfileCreation = () => {
   };
 
   return (
-    <div className={styles.container}>
-      <form className={styles.form} onSubmit={handleSubmit}>
-        <h1>Create Your Profile</h1>
-        <input
-          type="text"
-          name="name"
-          placeholder="Name"
-          value={formData.name}
-          onChange={handleChange}
-        />
-        <input
-          type="text"
-          name="major"
-          placeholder="Major"
-          value={formData.major}
-          onChange={handleChange}
-        />
-        <input
-          type="text"
-          name="school"
-          placeholder="School"
-          value={formData.school}
-          onChange={handleChange}
-        />
-        <button type="submit">Complete Profile</button>
-      </form>
+    <div>
+      <header className={styles.header}>
+        <div className={styles.brandName}>Alchemi</div>
+      </header>
+      <div className={styles.container}>
+        <form className={styles.form} onSubmit={handleSubmit}>
+          <h1>Create Your Profile</h1>
+          <input
+            type="text"
+            name="name"
+            placeholder="Name"
+            value={formData.name}
+            onChange={handleChange}
+          />
+          <input
+            type="text"
+            name="major"
+            placeholder="Major"
+            value={formData.major}
+            onChange={handleChange}
+          />
+          <input
+            type="text"
+            name="school"
+            placeholder="School"
+            value={formData.school}
+            onChange={handleChange}
+          />
+          <button type="submit">Complete Profile</button>
+        </form>
+      </div>
     </div>
   );
 };

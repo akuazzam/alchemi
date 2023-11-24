@@ -33,23 +33,28 @@ const SignUp = () => {
   };
 
   return (
-    <div className={styles.container}>
-      <form onSubmit={handleSubmit} className={styles.form}>
-        <h1>Sign Up</h1>
-        <input 
-          type="email" 
-          placeholder="Email" 
-          value={email} 
-          onChange={(e) => setEmail(e.target.value)}
-        />
-        <input 
-          type="password" 
-          placeholder="Create Password" 
-          value={password} 
-          onChange={(e) => setPassword(e.target.value)}
-        />
-        <button type="submit">Sign Up</button>
-      </form>
+    <div>
+      <header className={styles.header}>
+        <div className={styles.brandName}>Alchemi</div>
+      </header>
+      <div className={styles.container}>
+        <form onSubmit={handleSubmit} className={styles.form}>
+          <h1>Sign Up</h1>
+          <input 
+            type="email" 
+            placeholder="Email" 
+            value={email} 
+            onChange={(e) => setEmail(e.target.value)}
+          />
+          <input 
+            type="password" 
+            placeholder="Create Password" 
+            value={password} 
+            onChange={(e) => setPassword(e.target.value)}
+          />
+          <button type="submit">Sign Up</button>
+        </form>
+      </div>
     </div>
   );
 };

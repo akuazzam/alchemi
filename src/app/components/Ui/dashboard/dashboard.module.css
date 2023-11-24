@@ -46,7 +46,7 @@
     margin-top: 4px; /* Space between icon and text */
 }
    
-  .modal {
+.modal {
     position: fixed;
     top: 0;
     left: 0;
@@ -56,31 +56,31 @@
     display: flex;
     align-items: center;
     justify-content: center;
-  }
+}
    
-  .modalContent {
-    background: white;
-    padding: 20px;
-    border-radius: 10px;
-    display: flex;
-    flex-direction: column;
-  }
+.modalContent {
+  background: white;
+  padding: 20px;
+  border-radius: 10px;
+  display: flex;
+  flex-direction: column;
+}
    
-  .modalContent h2 {
-    margin-top: 0;
-  }
+.modalContent h2 {
+  margin-top: 0;
+}
    
-  .modalContent input {
+.modalContent input {
     margin-bottom: 10px;
     padding: 10px;
     font-size: 1rem;
     border: 1px solid #ccc;
     border-radius: 4px;
-  }
+}
    
-  .modalContent button {
+.modalContent button {
     padding: 10px 20px;
     margin-right: 10px;
     font-size: 1rem;
     cursor: pointer;
-  }
+}

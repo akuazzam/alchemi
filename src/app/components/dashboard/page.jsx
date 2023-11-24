@@ -36,12 +36,43 @@ const Dashboard = () => {
     fetchCourses();
   }, []);
 
+  const handleStartTutor = async (courseTitle) => {
+    try {
+      // Fetch user data
+      const userResponse = await fetch('/api/getUser');
+      const userData = await userResponse.json();
+
+      // Fetch course data
+      const courseResponse = await fetch('/api/getUserCourses');
+      const coursesData = await courseResponse.json();
+
+      // Select the course based on title
+      const selectedCourse = coursesData.find(course => course.title === courseTitle);
+
+      // Send data to Python backend
+      await fetch('http://localhost:5000/user-data', { // Replace with your Python server URL
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          user_info: userData,
+          course_info: selectedCourse,
+        }),
+      });
+
+      // Redirect or notify the user
+      console.log('AI tutor started for course:', courseTitle);
+    } catch (error) {
+      console.error('Error starting AI tutor:', error);
+    }
+  };
   return (
     <div className={styles.container}>
       <div className={styles.content}>
         <div className={styles.dashboard}>
           {courses?.map((course) => (
-            <div key={course._id} className={styles.card}>
+            <div key={course._id} className={styles.card} onClick={() => handleStartTutor(course.title)}>
               <img src={"course.imageUrl"} alt={course.title} className={styles.cardImage} />
               <h3 className={styles.cardTitle}>{course.Title}</h3>
             </div>

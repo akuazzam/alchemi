@@ -30,6 +30,7 @@
     cursor: pointer; /* Change cursor on hover */
     transition: transform 0.3s; /* Smooth scaling transition on hover */
     overflow: hidden; /* Hide overflowing content */
+    position: relative;
   }
   
   .card:hover {
@@ -52,7 +53,7 @@
     text-align: center; /* Center-align text */
     font-size: 1rem; /* Set font size */
     color: #fff; /* White text color */
-    background-color: rgb(255, 247, 247); /* Semi-transparent black background */
+    background-color: rgb(0, 0, 0); /* Semi-transparent black background */
     padding: 10px; /* Add padding for spacing inside the title */
     margin: 0; /* Remove margin to ensure clean layout */
     border-bottom-left-radius: 10px; /* Rounded corners for bottom of the title */

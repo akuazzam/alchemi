@@ -10,7 +10,7 @@ const courseSchema = new Schema({
   Summary: String,
   createdBy: {
     type: mongoose.Schema.Types.ObjectId,
-    ref: 'User'
+ref: 'User'
   },
   Quizzes: [{ type: Schema.Types.ObjectId, ref: 'Quiz' }],
   QuizAttempts: [{ type: Schema.Types.ObjectId, ref: 'QuizAttempt' }],

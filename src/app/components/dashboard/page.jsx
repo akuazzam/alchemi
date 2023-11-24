@@ -1,16 +1,19 @@
 "use client"
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import styles from '../Ui/dashboard/dashboard.module.css'; // Ensure you have a corresponding CSS module file
+import { useRouter } from 'next/navigation';
+
+
 
 const Dashboard = () => {
   const [courses, setCourses] = useState([]);
   const [showAddCourse, setShowAddCourse] = useState(false);
   const [newCourse, setNewCourse] = useState({ title: '', imageUrl: '' });
+  const router = useRouter();
 
   const handleAddCourse = () => {
-    setCourses([...courses, { ...newCourse, id: Date.now() }]);
-    setNewCourse({ title: '', imageUrl: '' }); // Reset form
-    setShowAddCourse(false); // Close the form
+    
+    router.push('/components/addCourse'); // Replace with actual path
   };
 
   const handleCourseChange = (event) => {
@@ -18,21 +21,34 @@ const Dashboard = () => {
     setNewCourse((prevCourse) => ({ ...prevCourse, [name]: value }));
   };
 
+  useEffect(() => {
+    const fetchCourses = async () => {
+      try {
+        const response = await fetch('/api/getUserCourses'); // Replace with your API endpoint
+        const data = await response.json();
+        setCourses(data);
+      } catch (error) {
+        console.error('Error fetching courses:', error);
+        // Handle error here
+      }
+    };
+
+    fetchCourses();
+  }, []);
+
   return (
     <div className={styles.container}>
-      
-
       <div className={styles.content}>
         <div className={styles.dashboard}>
-          {courses.map((course) => (
-            <div key={course.id} className={styles.card}>
-              <img src={course.imageUrl} alt={course.title} className={styles.cardImage} />
-              <h3 className={styles.cardTitle}>{course.title}</h3>
+          {courses?.map((course) => (
+            <div key={course._id} className={styles.card}>
+              <img src={"course.imageUrl"} alt={course.title} className={styles.cardImage} />
+              <h3 className={styles.cardTitle}>{course.Title}</h3>
             </div>
           ))}
 
           {/* Fixed 'Add Course' button */}
-          <div className={styles.addCourseButton} onClick={() => setShowAddCourse(true)}>
+          <div className={styles.addCourseButton} onClick={handleAddCourse}>
             <div className={styles.plusIcon}>+</div>
             <div className={styles.addCourseText}>Add Courses</div>
           </div>

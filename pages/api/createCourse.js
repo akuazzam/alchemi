@@ -19,9 +19,10 @@ export default async function handler(req, res) {
   if (!user) {
     return res.status(401).json({ error: 'Unauthorized' });
   }
-
   // Retrieve user ID
   const userId = user.id;
+  const objectId = new ObjectId(userId);
+
 
   const { db } = await connectToDatabase();
   
@@ -31,14 +32,12 @@ export default async function handler(req, res) {
     Description: description,
     BookName: bookName,
     Content: content,
+    createdBy: objectId,
     Summary: summary,
-    createdBy: userId
   });
-
   const courseCreationResult = await db.collection('courses').insertOne(newCourse);
   const courseId = courseCreationResult.insertedId;
 
-  const objectId = new ObjectId(userId);
 
   // Update the user's 'coursesEnrolled' field to include the new course
   await db.collection('users').updateOne(

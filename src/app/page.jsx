@@ -7,7 +7,7 @@ import Upload from './components/FileUpload';
 
 const Home = () => {
   return (
-  <Upload/>
+  <LoginPage/>
   );
 };
 

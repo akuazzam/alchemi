@@ -1,6 +1,9 @@
+"use client"
 import MenuLink from "./menuLink/menuLink";
 import styles from "./sidebar.module.css";
 import Image from "next/image";
+import { useState, useEffect } from "react";
+import { useRouter } from 'next/navigation';
 
 import {
     MdDashboard,
@@ -79,13 +82,33 @@ const menuItems = [
 
 
 const Sidebar = ()=>{
+  const [user, setUser] = useState({ name: "Loading..." });
+  const router = useRouter();
+
+  useEffect(() => {
+    const fetchUserData = async () => {
+      try {
+        const response = await fetch('/api/getUser');
+        if (!response.ok) {
+          throw new Error('Failed to fetch user');
+        }
+        const userData = await response.json();
+        setUser({ name: userData.name, title: userData.title || 'User' });
+      } catch (error) {
+        console.error('Error fetching user:', error);
+      }
+    };
+
+    fetchUserData();
+  }, []);
+
     return (
         <div className = {styles.container}>
             <div className = {styles.user}>
                 <Image className = {styles.userImage} src="/noavatar.png" alt="" width="50" height="50"/>
                 <div className = {styles.userDetail}>
-                    <span className = {styles.username}>Abel Kassa</span>
-                    <span className = {styles.userTitle}>Administrator</span>
+                <span className = {styles.userTitle}>Welcome</span>
+                    <span className = {styles.username}>{user.name}</span>
                 </div>
             </div>
             <ul className={styles.list}>

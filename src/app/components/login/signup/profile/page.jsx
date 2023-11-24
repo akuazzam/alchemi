@@ -8,7 +8,8 @@ const ProfileCreation = () => {
   const [formData, setFormData] = useState({
     name: '',
     major: '',
-    school: ''
+    school: '',
+    email: ''
   });
 
   // State to hold the router object
@@ -19,6 +20,7 @@ const ProfileCreation = () => {
 
   const handleChange = (event) => {
     const { name, value } = event.target;
+
     setFormData(prevState => ({
       ...prevState,
       [name]: value
@@ -27,14 +29,40 @@ const ProfileCreation = () => {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-    // Handle profile creation logic here, e.g., send data to your API
+    const userData = {
+      Name: formData.name,
+      Email: formData.email,
+      Major: formData.major,
+      School: formData.school
+    };
+      console.log('Sending user data:', userData);
+    
+      try {
+        const response = await fetch('/api/createUser', { // Adjust the endpoint as needed
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(userData),
+          
+        });
+    
+        if (!response.ok) {
+          throw new Error(`HTTP error! status: ${response.status}`);
+        }
+    
+        const result = await response.json();
+        console.log('User created successfully:', result);
+        // Handle successful response here (e.g., show a success message, clear form, etc.)
+          router.push('/components/dashboard'); // Make sure '/dashboard' is the correct path to your dashboard
+      } catch (error) {
+        console.error('Failed to create course:', error);
+        // Handle errors here (e.g., show error message)
+      }
+    };
+    
+   
 
-    // Redirect to the dashboard after successful profile creation
-    // Check if router is available (which indicates we are client-side)
-    if (router) {
-      router.push('/components/dashboard'); // Make sure '/dashboard' is the correct path to your dashboard
-    }
-  };
 
   return (
     <div className={styles.container}>
@@ -47,6 +75,13 @@ const ProfileCreation = () => {
           value={formData.name}
           onChange={handleChange}
         />
+          <input
+          type="text"
+          name="email"
+          placeholder="email"
+          value={formData.email}
+          onChange={handleChange}
+          />
         <input
           type="text"
           name="major"
@@ -61,10 +96,12 @@ const ProfileCreation = () => {
           value={formData.school}
           onChange={handleChange}
         />
+       
         <button type="submit">Complete Profile</button>
       </form>
     </div>
-  );
-};
+  )
+  };
+
 
 export default ProfileCreation;

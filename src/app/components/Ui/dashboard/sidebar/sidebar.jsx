@@ -12,11 +12,17 @@ import {
   MdPeople,
   MdOutlineSettings,
   MdHelpCenter,
-  MdLogout,
+  MdLogout,MdOutlineSchool ,MdQuickreply,
+ 
+  
 } from "react-icons/md";
+import { IoIosNotifications } from "react-icons/io";
+import { FaRegCalendarCheck,FaUserGraduate, } from "react-icons/fa";
+import { GrInProgress } from "react-icons/gr";
+
 const menuItems = [
     {
-      title: "Pages",
+      title: "Home Page",
       list: [
         {
           title: "Dashboard",
@@ -24,19 +30,19 @@ const menuItems = [
           icon: <MdDashboard />,
         },
         {
-          title: "Users",
+          title: "User",
           path: "/dashboard/users",
-          icon: <MdSupervisedUserCircle />,
+          icon: <FaUserGraduate />,
         },
         {
-          title: "Products",
+          title: "Courses",
           path: "/dashboard/products",
-          icon: <MdShoppingBag />,
+          icon: <MdOutlineSchool />,
         },
         {
-          title: "Transactions",
+          title: "Notifications",
           path: "/dashboard/transactions",
-          icon: <MdAttachMoney />,
+          icon: <IoIosNotifications />,
         },
       ],
     },
@@ -44,24 +50,24 @@ const menuItems = [
       title: "Progress",
       list: [
         {
-          title: "Revenue",
+          title: "Progress Tracker",
           path: "/dashboard/revenue",
-          icon: <MdWork />,
+          icon: <GrInProgress />,
         },
         {
-          title: "Reports",
+          title: "Announcments",
           path: "/dashboard/reports",
-          icon: <MdAnalytics />,
+          icon: <MdQuickreply />,
         },
         {
-          title: "Teams",
+          title: "Calendar",
           path: "/dashboard/teams",
-          icon: <MdPeople />,
+          icon:<FaRegCalendarCheck />,
         },
       ],
     },
     {
-      title: "User",
+      title: "About",
       list: [
         {
           title: "Settings",
@@ -85,7 +91,7 @@ const Sidebar = ()=>{
                 <Image className = {styles.userImage} src="/noavatar.png" alt="" width="50" height="50"/>
                 <div className = {styles.userDetail}>
                     <span className = {styles.username}>Champagne Papi</span>
-                    <span className = {styles.userTitle}>Student</span>
+                    <span className = {styles.userTitle}>Welcome</span>
                 </div>
             </div>
             <ul className={styles.list}>

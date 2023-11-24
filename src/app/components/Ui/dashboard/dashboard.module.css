@@ -67,7 +67,7 @@
     background-color: var(--bg);/*rgb(36, 124, 118);  Green background color */
     color: #fff; /* White text color */
     border-radius: 10px; /* Rounded corners for the button */
-    /*box-shadow: 0 4px 8px rgba(22, 5, 5, 0.2); /* Increased shadow for depth effect */
+    /*#box-shadow: 0 4px 8px rgba(22, 5, 5, 0.2); /* Increased shadow for depth effect */
     cursor: pointer; /* Change cursor on hover */
     transition: transform 0.3s; /* Smooth scaling transition on hover */
   }

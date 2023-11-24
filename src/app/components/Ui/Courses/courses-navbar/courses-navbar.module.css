@@ -33,4 +33,40 @@
 .icons {
     display: flex;
     gap: 20px;
+    position: relative;
+}
+
+
+.courseDropdownIcon {
+    cursor: pointer; /* Change cursor to pointer to indicate clickable area */
+}
+
+.coursesDropdown {
+    display: flex;
+    flex-direction: column;
+    position: absolute;
+    top: 100%; /* Position just below the icon */
+    right: 0; /* Align to the right of the .icons container */
+    background-color: #2e374a; /* Match the search bar's background */
+    border-radius: 10px;
+    padding: 10px;
+    box-shadow: 0 8px 16px rgba(0,0,0,0.2); /* Optional: adds a shadow for depth */
+    z-index: 100; /* Ensure it stacks on top of other content */
+    width: max-content; /* This will ensure the dropdown is as wide as the longest item */
+    /*max-width: 100%; /* Ensures the dropdown doesn't exceed the viewport width */
+}
+
+.coursesDropdown a {
+    color: var(--text); /* Use the text color variable you already have */
+    padding: 8px 12px;
+    text-decoration: none; /* Remove underline from links */
+    border-radius: 5px; /* Optional: if you want rounded corners for links */
+    transition: background-color 0.3s; /* Smooth background color transition */
+    white-space: nowrap; /* This prevents the text from wrapping */
+    overflow: visible; /* Ensures the text doesn't spill out of the container */
+    /*text-overflow: ellipsis; /* Adds an ellipsis if the text is too long to fit */
+}
+
+.coursesDropdown a:hover {
+    background-color: var(--bgSoft); /* Change background on hover */
 }

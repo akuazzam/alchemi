@@ -22,7 +22,7 @@ const SignUp = () => {
 
       if (response.ok) {
         // You might want to redirect the user to the login page or confirm the sign-up
-        router.push('/components/dashboard'); // Update with your actual route to the login page
+        router.push('/components/login/signup/profile'); // Update with your actual route to the login page
       } else {
         // Handle errors, e.g. display an error message
         console.error('Sign up failed');

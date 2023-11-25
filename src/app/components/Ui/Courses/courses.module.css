@@ -12,3 +12,35 @@
     flex: 4;
     padding: 20px;
 }
+
+.chaptersContainer {
+    width: 100%;
+    display: flex;
+    grid-template-columns: repeat(3, 1fr); /* Creates three columns of equal width */
+    grid-gap: 20px; /* Adjust the gap as needed */
+    padding: 20px; /* Add padding if needed */
+    /* If you want the grid to be centered or take a max-width you can add: */
+    /*margin: 0 auto;*/
+    /*max-width: 1200px; /* Adjust the max-width as necessary */
+    align-items: stretch;
+  }
+  
+  .chapterBox {
+    background-color: var(--bgSoft); /* Your preferred color for the box */
+    padding: 20px; /* Adjust padding as needed */
+    border-radius: 10px; /* If you want rounded corners */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Optional: adds subtle shadow for depth */
+    display: flex; /* If you want to use flex properties inside the box */
+    flex-direction: column; /* Stack children of the box vertically */
+    justify-content: space-between; /* Distributes space between children */
+    align-items: center; /* Centers children on the cross-axis */
+    /* Add any other styling you want for your boxes */
+    flex: 0 0 32%;
+    box-sizing: border-box;
+  }
+
+  @media screen and (min-width: 1200px) {
+    .chapterBox {
+      flex: 0 0 calc((100% / 3) - 20px); /* Adjust 20px to your actual gap size */
+    }
+  }

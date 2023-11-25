@@ -1,9 +1,13 @@
 import MenuLink from "./courses-menu/courses-menu";
 import styles from ".//courses-sidebar.module.css";
 import Image from "next/image";
+import { SiAlchemy } from "react-icons/si";
 import {
+
   MdOutlineSettings,
-  MdLogout, 
+  MdLogout,
+ 
+ 
 } from "react-icons/md";
 import { IoMdReturnLeft } from "react-icons/io";
 import { SiChatbot } from "react-icons/si";
@@ -48,7 +52,7 @@ const settingsMenuItem = {
 const Sidebar = () => {
   return (
 <div className={styles.container}>
-<span className={styles.userHeader}>Alchemi</span>
+<span className={styles.userHeader}> <SiAlchemy />               Alchemi</span>
 <div className={styles.user}>
 <Image className={styles.userImage} src="/noavatar.png" alt="" width="50" height="50" />
 <div className={styles.userDetail}>

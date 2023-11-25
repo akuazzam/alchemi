@@ -1,18 +1,24 @@
 .container {
-  display: flex; /* Use flex display */
-  flex-direction: column; /* Stack children vertically */
-  justify-content: space-between; /* Space between items */
-  height: 100vh; /* Take up the full viewport height */
   position: sticky;
-  top: 0; /* Adjusted to 0 to stick from the top */
-  /* ... other styles ... */
+  top: 40px;
+  margin-bottom: 20px;
 }
+
+
+
+/* Optional: Style for the active link */
+.active {
+  font-weight: bold;
+  color: blue;
+}
+
+
 .userHeader {
-  margin-top: 100px;
-  margin-bottom: 100px;
+  margin-top: 10px;
+  margin-bottom: 20px;
   font-weight: bold;
   font-size: 32px; /* Increased font size */
-  color: orange;
+  color:gold;
   text-align: center;
   text-transform: uppercase;
 }
@@ -20,7 +26,7 @@
 .user {
   display: flex;
   align-items: center;
-  gap: 30px; /* Increased gap between items */
+  gap: 20px; /* Increased gap between items */
   margin-bottom: 30px; /* Increased margin */
   margin-top: 30px; /* Increased margin */
 }
@@ -40,15 +46,13 @@
 }
 
 .userTitle {
-  font-size: 14px; /* Increased font size */
+  font-size: 100px; /* Increased font size */
   color: var(--textSoft);
 }
 
 .list {
   list-style: none;
-}
-.menuItems {
-  list-style: none;
+  margin-bottom: 665px;
 }
 
 .cat {
@@ -70,8 +74,6 @@
   color: white;
   width: 100%;
   background-color: #2e374a;
-  margin-top: auto;
-  
 }
 
 .logout:hover {

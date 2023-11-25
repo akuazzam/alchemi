@@ -26,7 +26,7 @@
 .user {
   display: flex;
   align-items: center;
-  gap: 30px; /* Increased gap between items */
+  gap: 20px; /* Increased gap between items */
   margin-bottom: 30px; /* Increased margin */
   margin-top: 30px; /* Increased margin */
 }
@@ -46,12 +46,13 @@
 }
 
 .userTitle {
-  font-size: 14px; /* Increased font size */
+  font-size: 100px; /* Increased font size */
   color: var(--textSoft);
 }
 
 .list {
   list-style: none;
+  margin-bottom: 665px;
 }
 
 .cat {

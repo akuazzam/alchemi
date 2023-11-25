@@ -18,7 +18,7 @@ import { MdQuiz } from "react-icons/md";
 const mainMenuItems = [
   {
     title: "Return Home",
-    path: "/dashboard",
+    path: "/components/dashboard",
     icon: <IoMdReturnLeft />,
   },
   {

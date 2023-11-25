@@ -3,8 +3,10 @@ import React, { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import styles from "@/app/components/Ui/login/signup/profile/profile.module.css";
 import Dashboard from "@/app/components/dashboard/page";
+import CircularProgress from "@mui/material/CircularProgress";
 
 const ProfileCreation = () => {
+  const [isLoading, setIsLoading] = useState(false);
   const [formData, setFormData] = useState({
     name: "",
     major: "",
@@ -27,6 +29,8 @@ const ProfileCreation = () => {
   };
 
   const handleSubmit = async (event) => {
+    setIsLoading(true);
+
     event.preventDefault();
     const userData = {
       Name: formData.name,
@@ -58,6 +62,7 @@ const ProfileCreation = () => {
       console.error("Failed to create course:", error);
       // Handle errors here (e.g., show error message)
     }
+    setIsLoading(false);
   };
 
   return (
@@ -96,8 +101,11 @@ const ProfileCreation = () => {
             value={formData.school}
             onChange={handleChange}
           />
-
-          <button type="submit">Complete Profile</button>
+          {isLoading ? (
+            <CircularProgress />
+          ) : (
+            <button type="submit">Complete Profile</button>
+          )}
         </form>
       </div>
     </div>

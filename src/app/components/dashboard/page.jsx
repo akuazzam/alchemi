@@ -1,19 +1,25 @@
-"use client"
-import React, { useState, useEffect } from 'react';
-import styles from '../Ui/dashboard/dashboard.module.css'; // Ensure you have a corresponding CSS module file
-import { useRouter } from 'next/navigation';
-
+"use client";
+import React, { useState, useEffect } from "react";
+import styles from "../Ui/dashboard/dashboard.module.css"; // Ensure you have a corresponding CSS module file
+import { useRouter } from "next/navigation";
+import CircularProgress from "@mui/material/CircularProgress";
+import Chat from "../courses/page";
+import Sidebar from "../Ui/dashboard/sidebar/sidebar"
+import Navbar from "../Ui/dashboard/navbar/navbar"
+import style from "../Ui/dashboard/dashboard.module.css"
 
 
 const Dashboard = () => {
   const [courses, setCourses] = useState([]);
   const [showAddCourse, setShowAddCourse] = useState(false);
-  const [newCourse, setNewCourse] = useState({ title: '', imageUrl: '' });
+  const [isLoading, setIsLoading] = useState(false);
+  const [newCourse, setNewCourse] = useState({ title: "", imageUrl: "" });
+  const [selectedCourse, setSelectedCourse] = useState(null);
   const router = useRouter();
+  
 
   const handleAddCourse = () => {
-    
-    router.push('/components/addCourse'); // Replace with actual path
+    router.push("/components/addCourse"); // Replace with actual path
   };
 
   const handleCourseChange = (event) => {
@@ -21,67 +27,81 @@ const Dashboard = () => {
     setNewCourse((prevCourse) => ({ ...prevCourse, [name]: value }));
   };
 
+  const handleStartTutor = async (courseId) => {
+    try {
+      // Fetch user data
+      const course = courses.find(c => c._id === courseId);
+      if (course) {
+        setSelectedCourse(course._id);
+        console.log("Selected Course ID:", selectedCourse);
+
+        // Redirect or notify the user
+        console.log("AI tutor started for course:", course);
+        
+        // router.push("/components/courses"); // Redirect to the courses page
+      } else {
+        console.error("Course not found");
+        // Handle course not found situation, perhaps show an error message to the user
+      }
+    } catch (error) {
+      console.error("Error starting AI tutor:", error);
+      // Here you might want to set an error state and display a message to the user
+    }
+  };
+
+  // finally{  useEffect(() => {
+  //   console.log("Selected Course ID after set:", selectedCourse);
+  //   // Now 'selectedCourse' should be the updated state, if it's not, something else is wrong.
+  // }, [selectedCourse]); }
   useEffect(() => {
     const fetchCourses = async () => {
+      setIsLoading(true);
+
       try {
-        const response = await fetch('/api/getUserCourses'); // Replace with your API endpoint
+        const response = await fetch("/api/getUserCourses"); // Replace with your API endpoint
         const data = await response.json();
         setCourses(data);
       } catch (error) {
-        console.error('Error fetching courses:', error);
+        console.error("Error fetching courses:", error);
         // Handle error here
+      } finally {
+        setIsLoading(false);
       }
     };
 
     fetchCourses();
   }, []);
 
-  const handleStartTutor = async (courseId) => {
-    try {
-      // Fetch user data
-      const userResponse = await fetch('/api/getUser');
-      if (!userResponse.ok) throw new Error('Failed to fetch user data');
-      const userData = await userResponse.json();
-  
-      // Fetch course data
-      const courseResponse = await fetch('/api/getUserCourses');
-      if (!courseResponse.ok) throw new Error('Failed to fetch courses data');
-      const coursesData = await courseResponse.json();
-  
-      // Select the course based on title
-      const selectedCourse = coursesData.find(course => course._id=== courseId);
-      if (!selectedCourse) throw new Error('Course not found');
-  
-      // Send data to Python backend
-      fetch('http://localhost:8000/user-data', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: ({
-          user_info: userData,
-          course_info: selectedCourse,
-        }),
-      });
-  
-      // if (!tutorResponse.ok) throw new Error('Failed to start AI tutor');
-      // window.location.href = 'http://localhost:8000/';
-
-      // Redirect or notify the user
-      console.log('AI tutor started for course:', selectedCourse);
-    } catch (error) {
-      console.error('Error starting AI tutor:', error);
-      // Here you might want to set an error state and display a message to the user
-    }
-  };
-  
   return (
     <div className={styles.container}>
+         {selectedCourse ? (
+        // Render only the Chat component when a course is selected
+        <Chat courseId={selectedCourse} />
+      ) : (
+        <div className={style.container}>
+        <div className={style.menu}>
+            <Sidebar/>
+        </div>
+        <div className={style.content}>
+            <Navbar/>
       <div className={styles.content}>
         <div className={styles.dashboard}>
+          {isLoading && (
+            <div className={styles.loader}>
+              <CircularProgress />
+            </div>
+          )}
           {courses?.map((course) => (
-            <div key={course._id} className={styles.card} onClick={() => handleStartTutor(course._id)}>
-              <img src={"course.imageUrl"} alt={course.title} className={styles.cardImage} />
+            <div
+              key={course._id}
+              className={styles.card}
+              onClick={() => handleStartTutor(course._id)}
+            >
+              <img
+                src={"course.imageUrl"}
+                alt={course.title}
+                className={styles.cardImage}
+              />
               <h3 className={styles.cardTitle}>{course.Title}</h3>
             </div>
           ))}
@@ -91,33 +111,13 @@ const Dashboard = () => {
             <div className={styles.plusIcon}>+</div>
             <div className={styles.addCourseText}>Add Courses</div>
           </div>
-        </div>
 
-        {/* Add Course modal */}
-        {showAddCourse && (
-          <div className={styles.modal}>
-            <div className={styles.modalContent}>
-              <h2>Add a New Course</h2>
-              <input
-                type="text"
-                name="title"
-                placeholder="Course Title"
-                value={newCourse.title}
-                onChange={handleCourseChange}
-              />
-              <input
-                type="text"
-                name="imageUrl"
-                placeholder="Image URL"
-                value={newCourse.imageUrl}
-                onChange={handleCourseChange}
-              />
-              <button onClick={handleAddCourse}>Submit</button>
-              <button onClick={() => setShowAddCourse(false)}>Cancel</button>
-            </div>
-          </div>
-        )}
+        
+        </div>
       </div>
+      </div>
+        </div>
+      )}
     </div>
   );
 };

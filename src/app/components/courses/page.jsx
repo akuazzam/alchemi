@@ -1,24 +1,166 @@
-import styles from '../Ui/Courses/courses.module.css'; // Make sure the path is correct
+"use client";
+import React, { useState, useRef, useEffect } from "react";
+import styles from "./Chat.module.css";
+import { v4 as uuidv4 } from "uuid";
+import Sidebar from "../Ui/Courses/courses-sidebar/courses-sidebar"
+import style from "../Ui/dashboard/dashboard.module.css"
 
-const CoursePage = () => {
-  const chapters = [
-    { title: 'Chapter 1', description: 'Introduction to the course' },
-    { title: 'Chapter 2', description: 'Deep dive into the subject' },
-    { title: 'Chapter 3', description: 'Deep dive into the subject' }
-    // ... add all your chapters
-  ];
+
+const Chat = ({ courseId }) => { // Assuming courseId is passed as a prop to identify the course
+  const [input, setInput] = useState("");
+  const [messages, setMessages] = useState([]);
+  const [isLoading, setIsLoading] = useState(false);
+  const [user, setUser] = useState({});
+  const [course, setCourse] = useState({});
+  const messagesEndRef = useRef(null);
+  const sessionId = useRef(uuidv4());
+ useEffect(() => {
+    async function fetchData() {
+      try {
+        const [userRes, courseRes] = await Promise.all([
+          fetch("/api/getUser"),
+          fetch(`/api/getUserCourses`),
+        ]);
+
+        if (!userRes.ok) throw new Error('Failed to fetch user data');
+        if (!courseRes.ok) throw new Error('Failed to fetch course data');
+
+        const userData = await userRes.json();
+        const courseData = await courseRes.json();
+
+        const course = courseData.find(c => c._id === courseId);
+console.log(course)
+
+        setUser(userData);
+        setCourse(course);
+
+        // Initialize the chat with an introductory message
+        const introMessage = {
+          type: 'bot',
+          text: `Hello, I am Alchemi, your AI tutor for ${course.Title}. How can I assist you today?`
+        };
+        setMessages([introMessage]);
+      } catch (error) {
+        console.error("Error fetching data:", error);
+      }
+    }
+
+    if (courseId) {
+      fetchData();
+    }
+  }, [courseId]); // Dependency array with courseId ensures fetch runs only when courseId changes
+
+  useEffect(() => {
+    messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
+  }, [messages]);
+
+
+  const scrollToBottom = () => {
+    messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
+  };
+  useEffect(scrollToBottom, [messages]);
+
+   
+
+  const startNewChat = () => {
+    setMessages([]); // Clears the chat history
+    sessionId.current = uuidv4(); // Generate a new session ID for a new chat
+  };
+
+  const sendMessage = async () => {
+    if (!input.trim()) return;
+
+    const humanMessage = { type: "human", text: input };
+    setMessages((msgs) => [...msgs, humanMessage]);
+
+    setIsLoading(true);
+    try {
+      const response = await fetch("/api/chat", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          text: input,
+          user_info: user, // use the user prop directly
+          course_info: course, // use the course prop directly
+          session_id: sessionId.current,
+        }),
+      });
+
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+
+      const jsonResponse = await response.json();
+      const botText = jsonResponse.response.response;
+      setMessages((msgs) => [...msgs, { type: "bot", text: botText }]);
+    } catch (error) {
+      console.error("Error sending message:", error);
+      setMessages((msgs) => [
+        ...msgs,
+        { type: "system", text: "Could not reach the server." },
+      ]);
+    } finally {
+      setIsLoading(false);
+    }
+
+    setInput(""); // Clear input after sending
+  };
+
 
   return (
-    <div className={styles.chaptersContainer}>
-      {chapters.map(chapter => (
-        <div key={chapter.title} className={styles.chapterBox}>
-          <h3>{chapter.title}</h3>
-          <p>{chapter.description}</p>
-          {/* Add more content or buttons as needed */}
+    <>
+    <div className={style.container}>
+            <div className={style.menu}>
+                <Sidebar/>
+            </div>
+            <div className={style.content}>
+        <div className={styles.fullPageContainer}>
+
+      <div className={styles.container}>
+        <div className={styles.title}>Chat</div>
+        <div className={styles.menu}>
+          <button className={styles.newChatButton} onClick={startNewChat}>
+            + New Chat
+          </button>
         </div>
-      ))}
-    </div>
+      </div>
+      <div className={styles.chatContainer}>
+        <div className={styles.messageContainer}>
+          {messages.map((message, index) => (
+            <div
+              key={index}
+              className={`${styles.message} ${styles[message.type]}`}
+            >
+              {message.text}
+            </div>
+          ))}
+          {isLoading && <div className={styles.loading}>Loading...</div>}
+          <div ref={messagesEndRef} />
+        </div>
+        <div className={styles.inputArea}>
+          <input
+            className={styles.input}
+            value={input}
+            onChange={(e) => setInput(e.target.value)}
+            placeholder="Type your message here..."
+            disabled={isLoading}
+          />
+          <button
+            className={styles.sendButton}
+            onClick={sendMessage}
+            disabled={isLoading}
+          >
+            Send
+          </button>
+        </div>
+      </div>
+      </div>
+      </div>
+        </div>
+    </>
   );
 };
 
-export default CoursePage;
+export default Chat;

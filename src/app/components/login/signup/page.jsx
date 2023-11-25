@@ -3,6 +3,7 @@ import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import styles from "@/app/components/Ui/login/signup/signup.module.css";
 import { SiAlchemy } from "react-icons/si";
+import Link from 'next/link';
 
 const SignUp = () => {
   const [email, setEmail] = useState('');
@@ -54,6 +55,7 @@ const SignUp = () => {
             onChange={(e) => setPassword(e.target.value)}
           />
           <button type="submit">Sign Up</button>
+          <Link href="/components/login">Already have an account? Login here!</Link>
         </form>
       </div>
     </div>

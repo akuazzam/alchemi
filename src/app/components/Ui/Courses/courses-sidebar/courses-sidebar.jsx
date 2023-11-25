@@ -2,8 +2,11 @@ import MenuLink from "./courses-menu/courses-menu";
 import styles from ".//courses-sidebar.module.css";
 import Image from "next/image";
 import {
+
   MdOutlineSettings,
-  MdLogout, 
+  MdLogout,
+ 
+ 
 } from "react-icons/md";
 import { IoMdReturnLeft } from "react-icons/io";
 import { SiChatbot } from "react-icons/si";

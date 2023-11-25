@@ -1,5 +1,5 @@
 "use client";
-import React from "react";
+import React, { useRef, useEffect } from 'react';
 import styles from "../Ui/home/homepage.module.css"; // Ensure your CSS file path is correct
 import Head from "next/head";
 import {
@@ -24,6 +24,15 @@ const HomePage = () => {
     router.push("/components/login");
   };
 
+  const videoRef = useRef(null);
+//uncomment the following lines 28 - 34 for background video playback rate control :)
+  // Use useEffect to set the playback rate once the component has mounted
+  // useEffect(() => {
+  //   if (videoRef.current) {
+  //     videoRef.current.playbackRate = 1.0; // 0.5 is half the normal speed
+  //   }
+  // }, []); 
+
   return (
     <div className={styles.pageContainer}>
       <Head>
@@ -32,7 +41,13 @@ const HomePage = () => {
           rel="stylesheet"
         />
       </Head>
-      <video autoPlay muted loop className={styles.backgroundVideo}>
+      <video
+        autoPlay
+        muted
+        loop
+        className={styles.backgroundVideo}
+        ref={videoRef} // Attach the ref to the video element
+      >
         <source src="/Alchemi-background-video.mp4" type="video/mp4" />
         Your browser does not support the video tag.
       </video>

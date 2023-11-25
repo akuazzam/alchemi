@@ -18,7 +18,9 @@ import {
   MdLogout,MdOutlineSchool ,MdQuickreply,
  
   
-} from "react-icons/md";
+} 
+
+from "react-icons/md";
 import { IoIosNotifications } from "react-icons/io";
 import { FaRegCalendarCheck,FaUserGraduate, } from "react-icons/fa";
 import { GrInProgress } from "react-icons/gr";
@@ -111,7 +113,7 @@ const Sidebar = ()=>{
 
     return (
         <div className = {styles.container}>
-          <span className = {styles.userHeader}>Alchemi</span>
+          <span className={styles.userHeader}> <SiAlchemy />               Alchemi</span>
             <div className = {styles.user}>
                 <Image className = {styles.userImage} src="/noavatar.png" alt="" width="50" height="50"/>
                 <div className = {styles.userDetail}>

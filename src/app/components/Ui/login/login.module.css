@@ -17,6 +17,7 @@
     font-size: 1.5rem; /* Adjust the size as needed */
     font-weight: bold; /* Optional: if you want the brand name to be bold */
     /* Add any other styling as required for your brand */
+    color: gold;
 }
 
 .container {

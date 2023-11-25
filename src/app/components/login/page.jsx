@@ -3,6 +3,7 @@ import { useRouter } from "next/navigation";
 import { useState } from "react";
 import styles from "@/app/components/Ui/login/login.module.css";
 import Link from 'next/link';
+import { SiAlchemy } from "react-icons/si";
 
 
 export default function LoginPage() {
@@ -36,7 +37,7 @@ export default function LoginPage() {
   return (
     <div className={styles.pageContainer}>
       <header className={styles.header}>
-        <div className={styles.brandName}>Alchemi</div>
+        <div className={styles.brandName}><SiAlchemy />       Alchemi</div>
       </header>
       <div className={styles.container}>
         <form onSubmit={handleSubmit} className={styles.form}>

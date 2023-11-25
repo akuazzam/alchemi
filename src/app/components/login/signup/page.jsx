@@ -2,6 +2,7 @@
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import styles from "@/app/components/Ui/login/signup/signup.module.css";
+import { SiAlchemy } from "react-icons/si";
 
 const SignUp = () => {
   const [email, setEmail] = useState('');
@@ -35,7 +36,7 @@ const SignUp = () => {
   return (
     <div>
       <header className={styles.header}>
-        <div className={styles.brandName}>Alchemi</div>
+        <div className={styles.brandName}><SiAlchemy />        Alchemi</div>
       </header>
       <div className={styles.container}>
         <form onSubmit={handleSubmit} className={styles.form}>

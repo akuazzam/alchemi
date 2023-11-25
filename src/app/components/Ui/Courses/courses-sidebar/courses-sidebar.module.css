@@ -5,10 +5,6 @@
 }
 
 
-/* Optional: Add a hover effect */
-.container:hover {
-  background-color:var(--textSoft);
-}
 
 /* Optional: Style for the active link */
 .active {

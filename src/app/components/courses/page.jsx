@@ -4,7 +4,7 @@ const CoursePage = () => {
   const chapters = [
     { title: 'Chapter 1', description: 'Introduction to the course' },
     { title: 'Chapter 2', description: 'Deep dive into the subject' },
-    { title: 'Chapter 3', description: 'Very deep dive into the subject' }
+    { title: 'Chapter 3', description: 'Deep dive into the subject' }
     // ... add all your chapters
   ];
 

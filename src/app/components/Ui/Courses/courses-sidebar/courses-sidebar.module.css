@@ -14,8 +14,8 @@
 
 
 .userHeader {
-  margin-top: 100px;
-  margin-bottom: 100px;
+  margin-top: 10px;
+  margin-bottom: 20px;
   font-weight: bold;
   font-size: 32px; /* Increased font size */
   color: orange;

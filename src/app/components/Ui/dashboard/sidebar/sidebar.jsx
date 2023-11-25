@@ -90,7 +90,7 @@ const menuItems = [
 const Sidebar = ()=>{
     return (
         <div className = {styles.container}>
-          <span className = {styles.userHeader}>Alchemi</span>
+          <span className={styles.userHeader}> <SiAlchemy />               Alchemi</span>
             <div className = {styles.user}>
                 <Image className = {styles.userImage} src="/noavatar.png" alt="" width="50" height="50"/>
                 <div className = {styles.userDetail}>

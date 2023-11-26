@@ -26,12 +26,12 @@ export default function LoginPage() {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({ email, password }),
-        credentials: 'include',
       });
+      const data = await response.json(); // Parse the JSON response
 
       if (response.ok) {
      
-        localStorage.setItem("token", accessToken);
+        localStorage.setItem("token", data.accessToken);
         router.push("/components/dashboard"); // Update with your actual main page route
       } else {
         console.error("Login failed");

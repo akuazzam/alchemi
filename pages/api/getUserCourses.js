@@ -10,10 +10,7 @@ export default async function handler(req, res) {
 console.log(token)
 console.log(authHeader)
 
-  if (!token) {
-    return res.status(401).json({ error: 'No token provided' });
-  }
-
+ 
   // Initialize the Realm app
   const app = new Realm.App({ id: process.env.NEXT_PUBLIC_REALM_APP_ID });
 
@@ -22,9 +19,9 @@ console.log(authHeader)
     const user = app.currentUser;
     
 
-    if (!user) {
-      throw new Error('Invalid token');
-    }
+    // if (!user) {
+    //   throw new Error('No user');
+    // }
 
     const userId = user.id;
     const { db } = await connectToDatabase();

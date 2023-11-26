@@ -46,8 +46,11 @@ const Dashboard = () => {
           )}
           {courses?.map((course) => (
             <div key={course._id} className={styles.card}>
-              <Link href={`/chat/${course._id}`}>
-                <Image
+              <Link href={{
+                pathname: '/components/courses',
+                query:{ id: course._id}
+              }}>
+                <img
                   src={"course.imageUrl"}
                   alt={course.title}
                   className={styles.cardImage}

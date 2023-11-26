@@ -22,8 +22,9 @@ console.log(authHeader)
     // if (!user) {
     //   throw new Error('No user');
     // }
+    console.log(user)
 
-    const userId = user.id;
+    const userId = user._id;
     const { db } = await connectToDatabase();
     const objectId = new ObjectId(userId);
 

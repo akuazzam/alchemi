@@ -77,10 +77,15 @@ const Chat = ({ searchParams }) => {
 
     setIsLoading(true);
     try {
+      
+      const user = app.currentUser;
+      const token = user ? user._accessToken : null;
       const response = await fetch("/api/chat", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
+          'Authorization': `Bearer ${token}`,
+
         },
         body: JSON.stringify({
           text: input,
@@ -90,6 +95,7 @@ const Chat = ({ searchParams }) => {
         }),
       });
 
+    
       if (!response.ok) {
         throw new Error(`HTTP error! status: ${response.status}`);
       }

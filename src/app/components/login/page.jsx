@@ -18,14 +18,19 @@ export default function LoginPage() {
 
     try {
       setIsLoading(true);
+      const user = app.currentUser;
+      const token = user ? user._accessToken : null;
       const response = await fetch("/api/Login", {
         // Update with your actual API endpoint
         method: "POST",
         headers: {
           "Content-Type": "application/json",
+          'Authorization': `Bearer ${token}`,
+
         },
         body: JSON.stringify({ email, password }),
       });
+     
 
       if (response.ok) {
         // Navigate to main page on successful login

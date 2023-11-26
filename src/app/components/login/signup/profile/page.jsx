@@ -42,15 +42,19 @@ const ProfileCreation = () => {
     console.log("Sending user data:", userData);
 
     try {
+      const user = app.currentUser;
+      const token = user ? user._accessToken : null;
       const response = await fetch("/api/createUser", {
         // Adjust the endpoint as needed
         method: "POST",
         headers: {
           "Content-Type": "application/json",
+          'Authorization': `Bearer ${token}`,
+
         },
         body: JSON.stringify(userData),
       });
-
+     
       if (!response.ok) {
         throw new Error(`HTTP error! status: ${response.status}`);
       }

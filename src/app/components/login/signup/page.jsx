@@ -17,14 +17,18 @@ const SignUp = () => {
     setIsLoading(true);
 
     try {
+      const user = app.currentUser;
+      const token = user ? user._accessToken : null;
       const response = await fetch("/api/signUp", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
+          'Authorization': `Bearer ${token}`,
+
         },
         body: JSON.stringify({ email, password }),
       });
-
+     
       if (response.ok) {
         // You might want to redirect the user to the login page or confirm the sign-up
         router.push("/components/login/signup/profile"); // Update with your actual route to the login page

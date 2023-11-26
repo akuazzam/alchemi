@@ -20,9 +20,14 @@ export default function Upload() {
     setIsLoading(true);
     const formData = new FormData();
     formData.append('file', file);
-
+    const user = app.currentUser;
+    const token = user ? user._accessToken : null;
     const response = await fetch('/api/uploadSyllabus', {
       method: 'POST',
+      headers: {
+        'Authorization': `Bearer ${token}`,
+        // Include other headers as needed, like 'Content-Type' if your API expects it
+      },
       body: formData,
     });
 
@@ -45,15 +50,19 @@ export default function Upload() {
   
     try {
       setIsLoading(true);
-
+      const user = app.currentUser;
+      const token = user ? user._accessToken : null;
       const response = await fetch('/api/createCourse', { // Adjust the endpoint as needed
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
+          'Authorization': `Bearer ${token}`,
+
         },
         body: JSON.stringify(courseData),
       });
-  
+   
+    
       if (!response.ok) {
         throw new Error(`HTTP error! status: ${response.status}`);
       }

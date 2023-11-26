@@ -7,6 +7,8 @@ export default async function handler(req, res) {
   // Extract token from the Authorization header
   const authHeader = req.headers.authorization || '';
   const token = authHeader.startsWith('Bearer ') ? authHeader.substring(7) : null;
+console.log(token)
+console.log(authHeader)
 
   if (!token) {
     return res.status(401).json({ error: 'No token provided' });

@@ -5,7 +5,6 @@ import { useRouter } from "next/navigation";
 import CircularProgress from "@mui/material/CircularProgress";
 import Link from "next/link";
 import Image from 'next/image'; // Corrected import statement
-import * as Realm from 'realm-web';
 
 
 const Dashboard = () => {
@@ -17,22 +16,17 @@ const Dashboard = () => {
   const handleAddCourse = () => {
     router.push("/components/addCourse"); // Replace with actual path
   };
-  const app = new Realm.App({ id: "alchemi-jpihv" });
 
   useEffect(() => {
     const fetchCourses = async () => {
       setIsLoading(true);
-      const user = app.currentUser;
-
-      if (!user) {
-        console.error('User not logged in');
+      const token = localStorage.getItem('token');
+      if (!token) {
+        console.error('No token available.');
         setIsLoading(false);
-        // Redirect to login or handle unauthenticated user
         return;
       }
-
-      const token = user.accessToken; // Ensure this is the correct property for the token
-
+  
       try {
         const response = await fetch("/api/getUserCourses", {
           headers: {
@@ -40,25 +34,23 @@ const Dashboard = () => {
             // Add any other headers your API requires
           },
         });
-
-        if (!response.ok) {
+        if (response.ok) {
+          const data = await response.json();
+          setCourses(data);
+        } else {
+          // If the response is not OK, handle the error
           throw new Error(`Error fetching courses: ${response.statusText}`);
         }
-
-        const data = await response.json();
-        setCourses(data);
       } catch (error) {
         console.error("Error fetching courses:", error);
-        // Optionally, handle error by updating state to show an error message
+        // Handle error here
       } finally {
         setIsLoading(false);
       }
     };
 
     fetchCourses();
-  }, [app.currentUser]); // Depend on currentUser for re-fetching when it changes
-
- 
+  }, []);
 
   return (
     <div className={styles.container}>

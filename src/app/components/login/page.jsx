@@ -15,7 +15,7 @@ export default function LoginPage() {
   const [isLoading, setIsLoading] = useState(false);
   const app = new Realm.App({ id: process.env.NEXT_PUBLIC_REALM_APP_ID });
   const user = app.currentUser;
-  const token = user._accessToken;
+  const token = user ? user.accessToken : null;
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -27,7 +27,7 @@ export default function LoginPage() {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
-          "Authorization": `Bearer ${token}`,
+          'Authorization': `Bearer ${token}`,
 
         },
         body: JSON.stringify({ email, password }),

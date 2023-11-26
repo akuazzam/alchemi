@@ -1,11 +1,11 @@
 .container {
     display: flex;
-  }/* Styling for the menu section */
+  }
 
 .menu {
     flex: 1;
     background-color: var(--bgSoft); /* Set background color using a variable */
-    padding: 20px; /* Add padding for spacing inside the menu */
+    padding: 20px; 
   }
   
   /* Styling for the content section */
@@ -41,8 +41,8 @@
     width: 100%; /* Make image fill the entire width of the card */
     height: 150px; /* Adjusted height, maintain aspect ratio if needed */
     object-fit: cover; /* Ensure the image covers the entire card */
-    border-top-left-radius: 10px; /* Rounded corners for top of the image */
-    border-top-right-radius: 10px; /* Rounded corners for top of the image */
+    border-top-left-radius: 10px; 
+    border-top-right-radius: 10px; 
   }
   
   .cardTitle {
@@ -68,18 +68,18 @@
     justify-content: center;
     background-color: var(--bg);/*rgb(36, 124, 118);  Green background color */
     color: #fff; /* White text color */
-    border-radius: 10px; /* Rounded corners for the button */
-    /*#box-shadow: 0 4px 8px rgba(22, 5, 5, 0.2); /* Increased shadow for depth effect */
+    border-radius: 3px; /* Rounded corners for the button */
+    box-shadow: 0 4px 8px rgba(7, 2, 29, 0.2); 
     cursor: pointer; /* Change cursor on hover */
-    transition: transform 0.3s; /* Smooth scaling transition on hover */
+    transition: transform 0.3s; 
   }
   
   .addCourseButton:hover {
-    transform: scale(1.1); /* Slightly scale up on hover */
+    transform: scale(1.1); 
   }
   
   .plusIcon {
-    font-size: 3rem; /* Set font size for the plus icon */
+    font-size: 4rem; /* Set font size for the plus icon */
   }
   
   .addCourseText {

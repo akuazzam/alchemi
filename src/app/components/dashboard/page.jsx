@@ -4,50 +4,19 @@ import styles from "../Ui/dashboard/dashboard.module.css"; // Ensure you have a 
 import { useRouter } from "next/navigation";
 import CircularProgress from "@mui/material/CircularProgress";
 import Link from "next/link";
+import { useAuth } from "../../../../pages/api/useAuth";
 
 const Dashboard = () => {
+  const { user } = useAuth();
   const [courses, setCourses] = useState([]);
-  const [showAddCourse, setShowAddCourse] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
-  const [newCourse, setNewCourse] = useState({ title: "", imageUrl: "" });
-  const [selectedCourse, setSelectedCourse] = useState(null);
+
   const router = useRouter();
 
   const handleAddCourse = () => {
     router.push("/components/addCourse"); // Replace with actual path
   };
 
-  const handleCourseChange = (event) => {
-    const { name, value } = event.target;
-    setNewCourse((prevCourse) => ({ ...prevCourse, [name]: value }));
-  };
-
-  const handleStartTutor = async () => {
-    try {
-      // Fetch user data
-      const course = courses.find((c) => c._id === courseId);
-      if (course) {
-        setSelectedCourse(course._id);
-        console.log("Selected Course ID:", selectedCourse);
-
-        // Redirect or notify the user
-        console.log("AI tutor started for course:", course);
-
-        // router.push("/components/courses"); // Redirect to the courses page
-      } else {
-        console.error("Course not found");
-        // Handle course not found situation, perhaps show an error message to the user
-      }
-    } catch (error) {
-      console.error("Error starting AI tutor:", error);
-      // Here you might want to set an error state and display a message to the user
-    }
-  };
-
-  // finally{  useEffect(() => {
-  //   console.log("Selected Course ID after set:", selectedCourse);
-  //   // Now 'selectedCourse' should be the updated state, if it's not, something else is wrong.
-  // }, [selectedCourse]); }
   useEffect(() => {
     const fetchCourses = async () => {
       setIsLoading(true);

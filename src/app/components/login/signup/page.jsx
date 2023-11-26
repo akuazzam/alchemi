@@ -1,8 +1,10 @@
 "use client";
 import { useState } from "react";
 import { useRouter } from "next/navigation";
-import { CircularProgress} from "@nextui-org/react";
+import CircularProgress from "@mui/material/CircularProgress";
 import styles from "@/app/components/Ui/login/signup/signup.module.css";
+import { SiAlchemy } from "react-icons/si";
+import Link from 'next/link';
 
 const SignUp = () => {
   const [email, setEmail] = useState("");
@@ -12,9 +14,9 @@ const SignUp = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setIsLoading(true);
 
     try {
-      setIsLoading(true);
       const response = await fetch("/api/signUp", {
         method: "POST",
         headers: {
@@ -39,7 +41,7 @@ const SignUp = () => {
   return (
     <div>
       <header className={styles.header}>
-        <div className={styles.brandName}>Alchemi</div>
+        <div className={styles.brandName}><SiAlchemy />        Alchemi</div>
       </header>
       <div className={styles.container}>
         <form onSubmit={handleSubmit} className={styles.form}>
@@ -61,6 +63,8 @@ const SignUp = () => {
             ) : (
             <button type="submit">Sign Up</button>
           )}
+          <Link href="/components/login">Already have an account? Login here!</Link>
+
         </form>
       </div>
     </div>

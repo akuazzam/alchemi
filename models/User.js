@@ -2,10 +2,10 @@ const mongoose = require('mongoose');
 const { Schema } = mongoose;
 
 const userSchema = new Schema({
-  Email: { type: String, required: true },
-  Name: { type: String, required: true },
-  Major: String,
-  School: String,
+  email: { type: String, required: true },
+  name: { type: String, required: true },
+  major: String,
+  school: String,
   coursesEnrolled: [{ type: Schema.Types.ObjectId, ref: 'Course' }],
   user: {
     type: mongoose.Schema.Types.ObjectId,

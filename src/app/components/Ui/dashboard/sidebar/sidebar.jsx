@@ -25,6 +25,7 @@ import { IoIosNotifications } from "react-icons/io";
 import { FaRegCalendarCheck,FaUserGraduate, } from "react-icons/fa";
 import { GrInProgress } from "react-icons/gr";
 import { SiAlchemy } from "react-icons/si";
+
 const menuItems = [
 
     {
@@ -111,6 +112,19 @@ const Sidebar = ()=>{
     fetchUserData();
   }, []);
 
+  const handleLogout = () => {
+    // Redirect the user to the homepage
+    router.push('/');
+  
+    // Add a delay (e.g., 2 seconds) before setting user to null
+    const delay = 7000; // 2 seconds
+  
+    setTimeout(() => {
+      setUser(null);
+    }, delay);
+  };
+  
+
     return (
         <div className = {styles.container}>
           <span className={styles.userHeader}> <SiAlchemy />               Alchemi</span>
@@ -131,7 +145,7 @@ const Sidebar = ()=>{
                     </li>
                 ))}
             </ul>
-            <button className={styles.logout}>
+            <button className={styles.logout} onClick={handleLogout}>
             <MdLogout /> Logout
 
 </button>

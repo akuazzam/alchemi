@@ -2,8 +2,9 @@
 import React, { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import styles from "@/app/components/Ui/login/signup/profile/profile.module.css";
-import Dashboard from "@/app/components/dashboard/page";
 import CircularProgress from "@mui/material/CircularProgress";
+import Dashboard from '@/app/components/dashboard/page';
+import { SiAlchemy } from "react-icons/si";
 
 const ProfileCreation = () => {
   const [isLoading, setIsLoading] = useState(false);
@@ -68,7 +69,7 @@ const ProfileCreation = () => {
   return (
     <div>
       <header className={styles.header}>
-        <div className={styles.brandName}>Alchemi</div>
+        <div className={styles.brandName}><SiAlchemy />    Alchemi</div>
       </header>
       <div className={styles.container}>
         <form className={styles.form} onSubmit={handleSubmit}>

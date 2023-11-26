@@ -1,0 +1,164 @@
+@import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@700&family=Open+Sans&family=Lato&family=Roboto&display=swap");
+
+.pageContainer {
+  text-align: center;
+  font-family: Arial, sans-serif;
+  position: relative;
+  height: 100vh; /* Full viewport height */
+  overflow: hidden; /* Hide overflow to avoid scrollbars */
+  background-color: transparent;
+  display: flex;
+  justify-content: center; /* Center horizontally */
+  align-items: center; /* Center vertically */
+  background-color: transparent;
+}
+
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  padding: 10px;
+  background-color: transparent;
+  color: white;
+  position: absolute;
+  top: 0;
+  width: 100%;
+}
+
+.logo {
+  font-size: 2rem;
+  margin: 20px;
+  font-family: "Roboto", sans-serif;
+  color: gold;
+}
+
+.signInButton {
+  background-color: transparent; /* Adjust the color to match your brand */
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  margin: 20px;
+  font-size: 1.5rem;
+  font-family: "Roboto", sans-serif;
+}
+
+.signInButton:hover {
+  color: #ccc;
+  transform: scale(1.1); /* Enlarge icons slightly on hover */
+}
+
+.backgroundVideo {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover; /* Cover the entire viewport */
+  z-index: -1; /* Send the video to the back */
+}
+
+.content {
+  position: relative;
+  z-index: 1; /* Make sure content is above the video */
+  /* Style your content here */
+}
+
+.hero {
+  padding: 50px 20px;
+  width: 100%; /* Adjust as needed */
+  max-width: 600px; /* Adjust as needed */
+  padding: 20px;
+  margin: auto; /* Center in the available space */
+  text-align: center;
+}
+
+.tagline {
+  font-size: 4rem;
+  margin-bottom: 40px;
+  font-family: "Montserrat", sans-serif;
+}
+
+.getStartedButton {
+  background-color: #007bff; /* Adjust the color to match your brand */
+  font-family: "Lato", sans-serif;
+  color: white;
+  padding: 10px 30px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 1.2rem;
+}
+
+.getStartedButton:hover{
+  color: #ccc;
+  transform: scale(1.1); /* Enlarge icons slightly on hover */
+}
+
+.overview {
+  margin: 40px 0;
+}
+
+.introText {
+  margin-top: 20px;
+  margin-bottom: 20px;
+  text-size-adjust: 30%;
+  font-size: x-large;
+  font-family: "Open Sans", sans-serif;
+}
+
+.footer {
+  background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent overlay for better legibility */
+  color: white;
+  padding: 20px 0;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  display: flex;
+  justify-content: center; /* Center content for a balanced look */
+  align-items: center;
+  z-index: 10;
+  text-shadow: 1px 1px 2px black; /* Text shadow for text legibility */
+}
+
+.footerContent {
+  display: flex;
+  justify-content: space-around; /* Space out footer items */
+  align-items: center;
+  width: 100%; /* Ensure the footer content uses the full width */
+  max-width: 1200px; /* Optional: constrain the footer's width for very wide screens */
+  margin: 0 auto; /* Center the footer content within the footer */
+}
+
+.footerLink {
+  text-decoration: none;
+  color: white;
+  font-weight: 500;
+  transition: color 0.3s ease, transform 0.3s ease;
+  padding: 5px 10px; /* Padding for better clickability */
+}
+
+.footerLink:hover {
+  color: #ccc;
+  transform: translateY(-2px); /* Raise the link slightly on hover */
+}
+
+.socialMediaIcons {
+  display: flex;
+  gap: 30px; /* Space out social media icons */
+}
+
+.socialIcon {
+  color: white;
+  font-size: 24px; /* Adjust the size of the icons as needed */
+  transition: color 0.3s ease, transform 0.3s ease;
+}
+
+.socialIcon:hover {
+  color: #ccc;
+  transform: scale(1.1); /* Enlarge icons slightly on hover */
+}
+
+/* Add any additional styling specific to your site's theme and branding */
+

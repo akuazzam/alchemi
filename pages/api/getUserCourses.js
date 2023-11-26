@@ -17,8 +17,7 @@ export default async function handler(req, res) {
 
   try {
     // Verify the token
-    const accessToken = Realm.Credentials.jwt(token);
-    const user = await app.logIn(accessToken);
+    const user = app.currentUser;
     
 
     if (!user) {

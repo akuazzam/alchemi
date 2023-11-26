@@ -101,7 +101,7 @@ const Sidebar = ()=>{
       try {
         const app = new Realm.App({ id: process.env.NEXT_PUBLIC_REALM_APP_ID });
         const user = app.currentUser; // Ensure 'app' and 'currentUser' are properly defined and available
-        const token = user ? user.accessToken : null; // Use the correct token property
+        const token = user ? user._accessToken : null; // Use the correct token property
   
         const response = await fetch('/api/getUser', {
           headers: {

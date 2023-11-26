@@ -60,7 +60,7 @@ const Sidebar = () => {
       try {
         const app = new Realm.App({ id: process.env.NEXT_PUBLIC_REALM_APP_ID });
         const user = app.currentUser; // Make sure 'app' is imported and 'currentUser' is authenticated
-        const token = user ? user.accessToken : null; // Replace 'accessToken' with the correct token property      
+        const token = user ? user._accessToken : null; // Replace 'accessToken' with the correct token property      
         const response = await fetch('/api/getUser', {
           headers: {
             'Authorization': `Bearer ${token}`,

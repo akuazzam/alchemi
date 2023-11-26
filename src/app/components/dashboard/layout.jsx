@@ -4,8 +4,14 @@ import styles from "../Ui/dashboard/dashboard.module.css"
 
 const Layout = ({children})=>{
     return (
-       <div>
-                        {children}
+        <div className={styles.container}>
+        <div className={styles.menu}>
+            <Sidebar/>
+        </div>
+        <div className={styles.content}>
+            <Navbar/>
+            {children}
+        </div>
         </div>
     )
 }

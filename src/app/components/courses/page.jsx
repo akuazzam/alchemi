@@ -4,9 +4,9 @@ import styles from "./Chat.module.css";
 import { v4 as uuidv4 } from "uuid";
 import Sidebar from "../Ui/Courses/courses-sidebar/courses-sidebar"
 import style from "../Ui/dashboard/dashboard.module.css"
+import { useRouter } from 'next/router';
 
-
-const Chat = ({ courseId }) => { // Assuming courseId is passed as a prop to identify the course
+const Chat = () => { // Assuming courseId is passed as a prop to identify the course
   const [input, setInput] = useState("");
   const [messages, setMessages] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
@@ -14,12 +14,17 @@ const Chat = ({ courseId }) => { // Assuming courseId is passed as a prop to ide
   const [course, setCourse] = useState({});
   const messagesEndRef = useRef(null);
   const sessionId = useRef(uuidv4());
- useEffect(() => {
+  const router = useRouter();
+
+useEffect(() => {
+  // Wait until the router is ready and then access the query parameters
+  if (router.isReady) {
+    const { courseId } = router.query; // Now we can safely destructure courseId
     async function fetchData() {
       try {
         const [userRes, courseRes] = await Promise.all([
           fetch("/api/getUser"),
-          fetch(`/api/getUserCourses`),
+          fetch("/api/getUserCourses"), // Fetch all courses without passing courseId
         ]);
 
         if (!userRes.ok) throw new Error('Failed to fetch user data');
@@ -28,8 +33,9 @@ const Chat = ({ courseId }) => { // Assuming courseId is passed as a prop to ide
         const userData = await userRes.json();
         const courseData = await courseRes.json();
 
+        // Filter on the client-side for the specific course
         const course = courseData.find(c => c._id === courseId);
-console.log(course)
+        if (!course) throw new Error('Course not found');
 
         setUser(userData);
         setCourse(course);
@@ -37,7 +43,7 @@ console.log(course)
         // Initialize the chat with an introductory message
         const introMessage = {
           type: 'bot',
-          text: `Hello, I am Alchemi, your AI tutor for ${course.Title}. How can I assist you today?`
+          text: `Hello, I am Alchemi, your AI tutor for ${course.Title}. How can I assist you today?` // Ensure the property name matches your course data structure
         };
         setMessages([introMessage]);
       } catch (error) {
@@ -48,7 +54,10 @@ console.log(course)
     if (courseId) {
       fetchData();
     }
-  }, [courseId]); // Dependency array with courseId ensures fetch runs only when courseId changes
+  }
+}, [router.isReady, router.query]); // Dependency array with courseId ensures fetch runs only when courseId changes
+
+
 
   useEffect(() => {
     messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
@@ -110,16 +119,10 @@ console.log(course)
 
 
   return (
-    <>
-    <div className={style.container}>
-            <div className={style.menu}>
-                <Sidebar/>
-            </div>
-            <div className={style.content}>
-        <div className={styles.fullPageContainer}>
+    <>       
 
       <div className={styles.container}>
-        <div className={styles.title}>Chat</div>
+        <div className={styles.title}>{course.Title} Ai tutor</div>
         <div className={styles.menu}>
           <button className={styles.newChatButton} onClick={startNewChat}>
             + New Chat
@@ -156,9 +159,7 @@ console.log(course)
           </button>
         </div>
       </div>
-      </div>
-      </div>
-        </div>
+     
     </>
   );
 };

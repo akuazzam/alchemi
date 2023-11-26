@@ -1,10 +1,12 @@
+
 .container {
     display: flex;
+    
 }
  
 .menu {
     flex: 1;
-    background-color: var(--bgSoft);
+    background-color: #182237;
     padding: 20px;
 }
  

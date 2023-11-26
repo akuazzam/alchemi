@@ -3,11 +3,7 @@ import React, { useState, useEffect } from "react";
 import styles from "../Ui/dashboard/dashboard.module.css"; // Ensure you have a corresponding CSS module file
 import { useRouter } from "next/navigation";
 import CircularProgress from "@mui/material/CircularProgress";
-import Chat from "../courses/page";
-import Sidebar from "../Ui/dashboard/sidebar/sidebar"
-import Navbar from "../Ui/dashboard/navbar/navbar"
-import style from "../Ui/dashboard/dashboard.module.css"
-
+import Link from "next/link";
 
 const Dashboard = () => {
   const [courses, setCourses] = useState([]);
@@ -16,7 +12,6 @@ const Dashboard = () => {
   const [newCourse, setNewCourse] = useState({ title: "", imageUrl: "" });
   const [selectedCourse, setSelectedCourse] = useState(null);
   const router = useRouter();
-  
 
   const handleAddCourse = () => {
     router.push("/components/addCourse"); // Replace with actual path
@@ -27,17 +22,17 @@ const Dashboard = () => {
     setNewCourse((prevCourse) => ({ ...prevCourse, [name]: value }));
   };
 
-  const handleStartTutor = async (courseId) => {
+  const handleStartTutor = async () => {
     try {
       // Fetch user data
-      const course = courses.find(c => c._id === courseId);
+      const course = courses.find((c) => c._id === courseId);
       if (course) {
         setSelectedCourse(course._id);
         console.log("Selected Course ID:", selectedCourse);
 
         // Redirect or notify the user
         console.log("AI tutor started for course:", course);
-        
+
         // router.push("/components/courses"); // Redirect to the courses page
       } else {
         console.error("Course not found");
@@ -74,16 +69,6 @@ const Dashboard = () => {
 
   return (
     <div className={styles.container}>
-         {selectedCourse ? (
-        // Render only the Chat component when a course is selected
-        <Chat courseId={selectedCourse} />
-      ) : (
-        <div className={style.container}>
-        <div className={style.menu}>
-            <Sidebar/>
-        </div>
-        <div className={style.content}>
-            <Navbar/>
       <div className={styles.content}>
         <div className={styles.dashboard}>
           {isLoading && (
@@ -92,17 +77,15 @@ const Dashboard = () => {
             </div>
           )}
           {courses?.map((course) => (
-            <div
-              key={course._id}
-              className={styles.card}
-              onClick={() => handleStartTutor(course._id)}
-            >
-              <img
-                src={"course.imageUrl"}
-                alt={course.title}
-                className={styles.cardImage}
-              />
-              <h3 className={styles.cardTitle}>{course.Title}</h3>
+            <div key={course._id} className={styles.card}>
+              <Link href={`/chat/${course._id}`}>
+                <img
+                  src={"course.imageUrl"}
+                  alt={course.title}
+                  className={styles.cardImage}
+                />
+                <h3 className={styles.cardTitle}>{course.Title}</h3>
+              </Link>
             </div>
           ))}
 
@@ -111,13 +94,8 @@ const Dashboard = () => {
             <div className={styles.plusIcon}>+</div>
             <div className={styles.addCourseText}>Add Courses</div>
           </div>
-
-        
         </div>
       </div>
-      </div>
-        </div>
-      )}
     </div>
   );
 };

@@ -17,7 +17,7 @@ const Dashboard = () => {
   const handleAddCourse = () => {
     router.push("/components/addCourse"); // Replace with actual path
   };
-  const app = new Realm.App({ id: alchemi-jpihv });
+  const app = new Realm.App({ id: "alchemi-jpihv" });
 
   useEffect(() => {
     const fetchCourses = async () => {

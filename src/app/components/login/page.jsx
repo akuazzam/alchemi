@@ -13,12 +13,12 @@ export default function LoginPage() {
   const [password, setPassword] = useState("");
   const router = useRouter();
   const [isLoading, setIsLoading] = useState(false);
+  const app = new Realm.App({ id: process.env.NEXT_PUBLIC_REALM_APP_ID });
+  const user = app.currentUser;
+  const token = user;
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const app = new Realm.App({ id: process.env.NEXT_PUBLIC_REALM_APP_ID });
-    const user = app.currentUser;
-    const token = user ? user._accessToken : null;
     try {
       setIsLoading(true);
       

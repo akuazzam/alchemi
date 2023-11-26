@@ -23,10 +23,24 @@ const Chat = ({ searchParams }) => {
     // Wait until the router is ready and then access the query parameters
     // Now we can safely destructure courseId
     async function fetchData() {
+      const app = new Realm.App({ id: process.env.NEXT_PUBLIC_REALM_APP_ID });
+      const user = app.currentUser; // Ensure 'app' and 'currentUser' are properly defined and available
+      const token = user ? user.accessToken : null; // Use the correct token property
+    
       try {
         const [userRes, courseRes] = await Promise.all([
-          fetch("/api/getUser"),
-          fetch("/api/getUserCourses"), // Fetch all courses without passing courseId
+          fetch("/api/getUser", {
+            headers: {
+              'Authorization': `Bearer ${token}`, // Add token to the getUser request
+              // Include other headers as needed
+            },
+          }),
+          fetch("/api/getUserCourses", { // Fetch all courses without passing courseId
+            headers: {
+              'Authorization': `Bearer ${token}`, // Add token to the getUserCourses request
+              // Include other headers as needed
+            },
+          }),
         ]);
 
         if (!userRes.ok) throw new Error("Failed to fetch user data");

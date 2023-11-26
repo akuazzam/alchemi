@@ -5,6 +5,8 @@ import { useRouter } from "next/navigation";
 import CircularProgress from "@mui/material/CircularProgress";
 import Link from "next/link";
 import Image from 'next/image'; // Corrected import statement
+import * as Realm from 'realm-web';
+
 
 const Dashboard = () => {
   const [courses, setCourses] = useState([]);
@@ -19,9 +21,17 @@ const Dashboard = () => {
   useEffect(() => {
     const fetchCourses = async () => {
       setIsLoading(true);
-
+      const app = new Realm.App({ id: process.env.NEXT_PUBLIC_REALM_APP_ID });
+      const user = app.currentUser; // Make sure 'app' is imported and 'currentUser' is authenticated
+      const token = user ? user.accessToken : null; // Replace 'accessToken' with the correct token property
+    
       try {
-        const response = await fetch("/api/getUserCourses"); // Replace with your API endpoint
+        const response = await fetch("/api/getUserCourses", {
+          headers: {
+            'Authorization': `Bearer ${token}`,
+            // Add any other headers your API requires
+          },
+        });
         const data = await response.json();
         setCourses(data);
       } catch (error) {

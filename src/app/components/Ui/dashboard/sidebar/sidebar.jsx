@@ -25,6 +25,7 @@ import { IoIosNotifications } from "react-icons/io";
 import { FaRegCalendarCheck,FaUserGraduate, } from "react-icons/fa";
 import { GrInProgress } from "react-icons/gr";
 import { SiAlchemy } from "react-icons/si";
+import * as Realm from 'realm-web';
 
 const menuItems = [
 
@@ -98,7 +99,16 @@ const Sidebar = ()=>{
   useEffect(() => {
     const fetchUserData = async () => {
       try {
-        const response = await fetch('/api/getUser');
+        const app = new Realm.App({ id: process.env.NEXT_PUBLIC_REALM_APP_ID });
+        const user = app.currentUser; // Ensure 'app' and 'currentUser' are properly defined and available
+        const token = user ? user.accessToken : null; // Use the correct token property
+  
+        const response = await fetch('/api/getUser', {
+          headers: {
+            'Authorization': `Bearer ${token}`, // Add token to the getUser request
+            // Include other headers as needed
+          },
+        });
         if (!response.ok) {
           throw new Error('Failed to fetch user');
         }

@@ -16,7 +16,9 @@ import { SiChatbot } from "react-icons/si";
 import { TbCardsFilled } from "react-icons/tb";
 import { FaNoteSticky } from "react-icons/fa6";
 import { MdQuiz } from "react-icons/md";
- 
+import * as Realm from 'realm-web';
+
+
 const mainMenuItems = [
   {
     title: "Return Home",
@@ -56,7 +58,15 @@ const Sidebar = () => {
   useEffect(() => {
     const fetchUserData = async () => {
       try {
-        const response = await fetch('/api/getUser');
+        const app = new Realm.App({ id: process.env.NEXT_PUBLIC_REALM_APP_ID });
+        const user = app.currentUser; // Make sure 'app' is imported and 'currentUser' is authenticated
+        const token = user ? user.accessToken : null; // Replace 'accessToken' with the correct token property      
+        const response = await fetch('/api/getUser', {
+          headers: {
+            'Authorization': `Bearer ${token}`,
+            // Add any other headers your API requires
+          },
+        });
         if (!response.ok) {
           throw new Error('Failed to fetch user');
         }

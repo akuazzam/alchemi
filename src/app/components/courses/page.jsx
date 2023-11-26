@@ -5,6 +5,8 @@ import { v4 as uuidv4 } from "uuid";
 import Sidebar from "../Ui/Courses/courses-sidebar/courses-sidebar";
 import style from "../Ui/dashboard/dashboard.module.css";
 import { useRouter } from "next/navigation";
+import * as Realm from 'realm-web';
+
 
 const Chat = ({ searchParams }) => {
   // Assuming courseId is passed as a prop to identify the course
@@ -77,7 +79,8 @@ const Chat = ({ searchParams }) => {
 
     setIsLoading(true);
     try {
-      
+      const app = new Realm.App({ id: process.env.NEXT_PUBLIC_REALM_APP_ID });
+
       const user = app.currentUser;
       const token = user ? user._accessToken : null;
       const response = await fetch("/api/chat", {

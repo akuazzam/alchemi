@@ -5,6 +5,8 @@ import CircularProgress from "@mui/material/CircularProgress";
 import styles from "@/app/components/Ui/login/signup/signup.module.css";
 import { SiAlchemy } from "react-icons/si";
 import Link from 'next/link';
+import * as Realm from 'realm-web';
+
 
 const SignUp = () => {
   const [email, setEmail] = useState("");
@@ -17,6 +19,7 @@ const SignUp = () => {
     setIsLoading(true);
 
     try {
+      const app = new Realm.App({ id: process.env.NEXT_PUBLIC_REALM_APP_ID });
       const user = app.currentUser;
       const token = user ? user._accessToken : null;
       const response = await fetch("/api/signUp", {

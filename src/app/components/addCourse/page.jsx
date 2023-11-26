@@ -3,6 +3,8 @@ import { useState } from 'react';
 import styles from './Upload.module.css';
 import {useRouter} from 'next/navigation';
 import CircularProgress from '@mui/material/CircularProgress';
+import * as Realm from 'realm-web';
+
 
 
 export default function Upload() {
@@ -20,6 +22,7 @@ export default function Upload() {
     setIsLoading(true);
     const formData = new FormData();
     formData.append('file', file);
+    const app = new Realm.App({ id: process.env.NEXT_PUBLIC_REALM_APP_ID });
     const user = app.currentUser;
     const token = user ? user._accessToken : null;
     const response = await fetch('/api/uploadSyllabus', {
@@ -50,6 +53,7 @@ export default function Upload() {
   
     try {
       setIsLoading(true);
+      const app = new Realm.App({ id: process.env.NEXT_PUBLIC_REALM_APP_ID });
       const user = app.currentUser;
       const token = user ? user._accessToken : null;
       const response = await fetch('/api/createCourse', { // Adjust the endpoint as needed

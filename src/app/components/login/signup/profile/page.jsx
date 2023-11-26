@@ -5,6 +5,8 @@ import styles from "@/app/components/Ui/login/signup/profile/profile.module.css"
 import CircularProgress from "@mui/material/CircularProgress";
 import Dashboard from '@/app/components/dashboard/page';
 import { SiAlchemy } from "react-icons/si";
+import * as Realm from 'realm-web';
+
 
 const ProfileCreation = () => {
   const [isLoading, setIsLoading] = useState(false);
@@ -42,6 +44,7 @@ const ProfileCreation = () => {
     console.log("Sending user data:", userData);
 
     try {
+      const app = new Realm.App({ id: process.env.NEXT_PUBLIC_REALM_APP_ID });
       const user = app.currentUser;
       const token = user ? user._accessToken : null;
       const response = await fetch("/api/createUser", {

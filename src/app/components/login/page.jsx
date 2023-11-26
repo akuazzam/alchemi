@@ -5,6 +5,7 @@ import styles from "@/app/components/Ui/login/login.module.css";
 import Link from "next/link";
 import CircularProgress from "@mui/material/CircularProgress";
 import { SiAlchemy } from "react-icons/si";
+import * as Realm from 'realm-web';
 
 
 export default function LoginPage() {
@@ -15,11 +16,12 @@ export default function LoginPage() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
+    const app = new Realm.App({ id: process.env.NEXT_PUBLIC_REALM_APP_ID });
+    const user = app.currentUser;
+    const token = user ? user._accessToken : null;
     try {
       setIsLoading(true);
-      const user = app.currentUser;
-      const token = user ? user._accessToken : null;
+      
       const response = await fetch("/api/Login", {
         // Update with your actual API endpoint
         method: "POST",

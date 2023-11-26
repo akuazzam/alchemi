@@ -30,7 +30,7 @@ const Dashboard = () => {
       try {
         const response = await fetch("/api/getUserCourses", {
           headers: {
-            'Authorization': `Bearer ${token}`,
+            'Authorization': `Bearer ${localStorage.getItem('token')}`,
             // Add any other headers your API requires
           },
         });

@@ -22,9 +22,17 @@ const Dashboard = () => {
   useEffect(() => {
     const fetchCourses = async () => {
       setIsLoading(true);
-      const user = app.currentUser; // Make sure 'app' is imported and 'currentUser' is authenticated
-      const token = user ? user.accessToken : null; // Replace 'accessToken' with the correct token property
-    
+      const user = app.currentUser;
+
+      if (!user) {
+        console.error('User not logged in');
+        setIsLoading(false);
+        // Redirect to login or handle unauthenticated user
+        return;
+      }
+
+      const token = user.accessToken; // Ensure this is the correct property for the token
+
       try {
         const response = await fetch("/api/getUserCourses", {
           headers: {
@@ -32,18 +40,25 @@ const Dashboard = () => {
             // Add any other headers your API requires
           },
         });
+
+        if (!response.ok) {
+          throw new Error(`Error fetching courses: ${response.statusText}`);
+        }
+
         const data = await response.json();
         setCourses(data);
       } catch (error) {
         console.error("Error fetching courses:", error);
-        // Handle error here
+        // Optionally, handle error by updating state to show an error message
       } finally {
         setIsLoading(false);
       }
     };
 
     fetchCourses();
-  }, []);
+  }, [app.currentUser]); // Depend on currentUser for re-fetching when it changes
+
+ 
 
   return (
     <div className={styles.container}>

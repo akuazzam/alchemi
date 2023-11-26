@@ -13,15 +13,15 @@ export default function LoginPage() {
   const [password, setPassword] = useState("");
   const router = useRouter();
   const [isLoading, setIsLoading] = useState(false);
-  const app = new Realm.App({ id: process.env.NEXT_PUBLIC_REALM_APP_ID });
-  const user = app.currentUser;
-  const token = user ? user.accessToken : null;
+  const app = new Realm.App({ id: alchemi-jpihv });
+ 
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
       setIsLoading(true);
-      
+      const user = app.currentUser;
+      const token = user ? user.accessToken : null;
       const response = await fetch("/api/Login", {
         // Update with your actual API endpoint
         method: "POST",

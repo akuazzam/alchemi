@@ -17,11 +17,11 @@ const Dashboard = () => {
   const handleAddCourse = () => {
     router.push("/components/addCourse"); // Replace with actual path
   };
+  const app = new Realm.App({ id: alchemi-jpihv });
 
   useEffect(() => {
     const fetchCourses = async () => {
       setIsLoading(true);
-      const app = new Realm.App({ id: process.env.NEXT_PUBLIC_REALM_APP_ID });
       const user = app.currentUser; // Make sure 'app' is imported and 'currentUser' is authenticated
       const token = user ? user.accessToken : null; // Replace 'accessToken' with the correct token property
     

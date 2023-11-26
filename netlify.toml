@@ -1,6 +1,5 @@
 [build]
 command = "npm run build"
-publish = "out" # This should be the directory of static files to publish, not ".next"
 
 [[plugins]]
 package = "@netlify/plugin-nextjs"

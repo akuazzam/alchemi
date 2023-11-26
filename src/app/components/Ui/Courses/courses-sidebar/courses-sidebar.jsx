@@ -1,3 +1,4 @@
+"use client"
 import MenuLink from "./courses-menu/courses-menu";
 import styles from "./courses-sidebar.module.css";
 import Image from "next/image";

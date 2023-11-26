@@ -4,10 +4,9 @@ import styles from "../Ui/dashboard/dashboard.module.css"; // Ensure you have a 
 import { useRouter } from "next/navigation";
 import CircularProgress from "@mui/material/CircularProgress";
 import Link from "next/link";
-import { useAuth } from "../../../../pages/api/useAuth";
+import Image from 'next/image'; // Corrected import statement
 
 const Dashboard = () => {
-  const { user } = useAuth();
   const [courses, setCourses] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
 
@@ -48,7 +47,7 @@ const Dashboard = () => {
           {courses?.map((course) => (
             <div key={course._id} className={styles.card}>
               <Link href={`/chat/${course._id}`}>
-                <img
+                <Image
                   src={"course.imageUrl"}
                   alt={course.title}
                   className={styles.cardImage}

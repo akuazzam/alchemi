@@ -1,0 +1,6 @@
+[build]
+command = "npm run build" # or "yarn build" if you use yarn
+publish = "out" # or ".next" based on your project's output
+
+[[plugins]]
+package = "@netlify/plugin-nextjs"

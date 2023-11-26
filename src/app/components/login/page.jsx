@@ -31,7 +31,6 @@ export default function LoginPage() {
         // Navigate to main page on successful login
         router.push("/components/dashboard"); // Update with your actual main page route
       } else {
-        // Handle errors (e.g., show an error message)
         console.error("Login failed");
       }
     } catch (error) {
@@ -42,7 +41,7 @@ export default function LoginPage() {
   return (
     <div className={styles.pageContainer}>
       <header className={styles.header}>
-        <div className={styles.brandName}><SiAlchemy />       Alchemi</div>
+        <div className={styles.brandName}><SiAlchemy />Alchemi</div>
       </header>
       <div className={styles.container}>
         <form onSubmit={handleSubmit} className={styles.form}>
@@ -66,7 +65,7 @@ export default function LoginPage() {
           )}
 
           <Link href="/components/login/signup">
-            Don't have an account? Sign Up here!
+            Dont have an account? Sign Up here!
           </Link>
         </form>
       </div>

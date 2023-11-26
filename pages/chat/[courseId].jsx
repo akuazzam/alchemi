@@ -16,7 +16,8 @@ const ChatPage = () => {
       const { courseId: queryCourseId } = router.query;
       setCourseId(queryCourseId);
     }
-  }, [router.isReady]);
+  }, [router.isReady, router.query]); // Include router.query in the dependency array
+  
 
   // Render the loading spinner if the router isn't ready or courseId isn't set
   if (!router.isReady || !courseId) {

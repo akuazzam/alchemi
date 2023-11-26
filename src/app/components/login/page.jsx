@@ -26,11 +26,12 @@ export default function LoginPage() {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({ email, password }),
+        credentials: 'include',
       });
 
       if (response.ok) {
      
-        localStorage.setItem("token", data.accessToken);
+        localStorage.setItem("token", accessToken);
         router.push("/components/dashboard"); // Update with your actual main page route
       } else {
         console.error("Login failed");

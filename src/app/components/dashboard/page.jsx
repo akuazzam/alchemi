@@ -28,7 +28,7 @@ const Dashboard = () => {
       try {
         const response = await fetch("/api/getUserCourses", {
           headers: {
-            'Authorization': `Bearer ${token}`,
+            'MyAuthorization': `Bearer ${token}`,
             // Add any other headers your API requires
           },
         });

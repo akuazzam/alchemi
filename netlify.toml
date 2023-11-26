@@ -1,6 +1,6 @@
 [build]
-command = "npm run build" # or "yarn build" if you use yarn
-publish = "out" # or ".next" based on your project's output
+command = "npm run build"
+publish = "out" # This should be the directory of static files to publish, not ".next"
 
 [[plugins]]
 package = "@netlify/plugin-nextjs"

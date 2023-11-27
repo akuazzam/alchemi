@@ -1,25 +1,27 @@
 import { connectToDatabase } from '@/app/utils/mongodb_config';
-import { ObjectId } from 'mongodb'; // Import ObjectId
+import { ObjectId } from 'mongodb';
 
 export default async function handler(req, res) {
-  const userId  = req.body;
+  // Next.js will automatically parse the JSON body and place it in req.body
+  const { userId } = req.body;
 
-
-
+  if (!userId || userId.length !== 24) {
+    return res.status(400).json({ error: 'Invalid userId' });
+  }
 
   const { db } = await connectToDatabase();
 
-  // Convert userId to an ObjectId
-  const objectId = new ObjectId(userId);
-  
-  // Use the correct field for the query, for example, if you're storing the Realm userId in a different field:
-  // const userData = await db.collection('users').findOne({ realmUserId: objectId });
-  // Otherwise, if you're using the ObjectId as the _id in MongoDB:
-  const userData = await db.collection('users').findOne({ user: objectId });
+  try {
+    const objectId = new ObjectId(userId);
+    const userData = await db.collection('users').findOne({ user: objectId });
 
-  if (!userData) {
-    return res.status(404).json({ error: 'User not found' });
+    if (!userData) {
+      return res.status(404).json({ error: 'User not found' });
+    }
+
+    res.status(200).json(userData);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: 'Internal Server Error' });
   }
-
-  res.status(200).json(userData);
 }

@@ -8,7 +8,7 @@ export default async function handler(req, res) {
     return res.status(405).end('Method Not Allowed');
   }
 
-  const courseImages = ["1.png", "2.png", "3.png", "4.png", "5.png"];
+  const courseImages = ["1.webp", "2.webp", "3.webp", "4.webp", "5.webp"];
 
   const randomIndex = Math.floor(Math.random() * courseImages.length);
 

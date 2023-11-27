@@ -55,8 +55,11 @@ const settingsMenuItem = {
  
 const Sidebar = () => {
   const [user, setUser] = useState({ name: "Loading..." });
-  const userId = localStorage.getItem('userId'); // Assuming this is just the user ID string, not an object
+  let userId; // Declare userId outside the conditional block
 
+  if (typeof window !== 'undefined') {
+    userId = localStorage.getItem('userId'); // Assign value inside the block
+  }
   useEffect(() => {
     const fetchUserData = async () => {
       try {

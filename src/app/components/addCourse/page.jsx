@@ -40,8 +40,11 @@ export default function Upload() {
 
   const handleCourseSubmit = async (e) => {
     e.preventDefault();
-    const userId = localStorage.getItem('userId'); // Assuming this is just the user ID string, not an object
+    let userId; // Declare userId outside the conditional block
 
+  if (typeof window !== 'undefined') {
+    userId = localStorage.getItem('userId'); // Assign value inside the block
+  }
     const courseData = { title, description, content, bookName, summary, userId };
   
     try {

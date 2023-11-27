@@ -23,8 +23,11 @@ const Chat = ({ searchParams }) => {
     // Now we can safely destructure courseId
     async function fetchData() {
       try {
-        const userId = localStorage.getItem('userId'); // Assuming this is just the user ID string, not an object
+        let userId; // Declare userId outside the conditional block
 
+        if (typeof window !== "undefined") {
+          userId = localStorage.getItem("userId"); // Assign value inside the block
+        }
         const [userRes, courseRes] = await Promise.all([
           fetch("/api/getUser", {
             method: "POST",
@@ -96,15 +99,10 @@ const Chat = ({ searchParams }) => {
 
     setIsLoading(true);
     try {
-      const app = new Realm.App({ id: process.env.NEXT_PUBLIC_REALM_APP_ID });
-
-      const user = app.currentUser;
-      const token = user ? user._accessToken : null;
       const response = await fetch("/api/chat", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`,
         },
         body: JSON.stringify({
           text: input,
@@ -137,7 +135,7 @@ const Chat = ({ searchParams }) => {
   return (
     <>
       <div className={styles.container}>
-        <div className={styles.title}>{course.Title} Ai tutor</div>
+        <div className={styles.title}>{course.title} Ai tutor</div>
         <div className={styles.menu}>
           <button className={styles.newChatButton} onClick={startNewChat}>
             + New Chat

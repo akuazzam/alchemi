@@ -6,14 +6,9 @@ export default async function handler(req, res) {
   const app = new Realm.App({ id: process.env.NEXT_PUBLIC_REALM_APP_ID });
   const user = app.currentUser;
 
-  if (!user) {
-    return res.status(401).json({ error: 'Unauthorized' });
-  }
-
+ 
   const userId = user.id;
-  if (!userId) {
-    return res.status(400).json({ error: 'UserId is required' });
-  }
+
 
   const { db } = await connectToDatabase();
 

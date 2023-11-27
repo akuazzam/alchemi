@@ -4,39 +4,37 @@ import styles from "../Ui/dashboard/dashboard.module.css"; // Ensure you have a 
 import { useRouter } from "next/navigation";
 import CircularProgress from "@mui/material/CircularProgress";
 import Link from "next/link";
-import Image from 'next/image'; // Corrected import statement
-
+import Image from "next/image"; // Corrected import statement
 
 const Dashboard = () => {
   const [courses, setCourses] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
-
 
   const router = useRouter();
 
   const handleAddCourse = () => {
     router.push("/components/addCourse"); // Replace with actual path
   };
-  const userId = localStorage.getItem('userId'); // Assuming this is just the user ID string, not an object
+  const userId = localStorage.getItem("userId"); // Assuming this is just the user ID string, not an object
 
   useEffect(() => {
     const fetchCourses = async () => {
       setIsLoading(true);
-     
+
       try {
         const response = await fetch("/api/getUserCourses", {
-          method: 'POST',
+          method: "POST",
           headers: {
-            'Content-Type': 'text/plain',
+            "Content-Type": "text/plain",
             // Include an Authorization header if you are using a token-based auth
             // 'Authorization': `Bearer ${userToken}`,
           },
-          body:  userId ,
+          body: userId,
         });
         if (response.ok) {
           const data = await response.json();
           setCourses(data);
-          console.log(course)
+          console.log(course);
         } else {
           // If the response is not OK, handle the error
           throw new Error(`Error fetching courses: ${response.statusText}`);
@@ -63,12 +61,16 @@ const Dashboard = () => {
           )}
           {courses?.map((course) => (
             <div key={course._id} className={styles.card}>
-              <Link href={{
-                pathname: '/components/courses',
-                query:{ id: course._id}
-              }}>
-                <img
-                  src={"course.imageUrl"}
+              <Link
+                href={{
+                  pathname: "/components/courses",
+                  query: { id: course._id },
+                }}
+              >
+                <Image
+                  src={`/images/${course.imageUrl}`}
+                  width={100} // Set the desired width
+                  height={100} // Set the desired height
                   alt={course.title}
                   className={styles.cardImage}
                 />

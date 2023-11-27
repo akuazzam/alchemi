@@ -8,8 +8,10 @@ export default async function handler(req, res) {
     return res.status(405).end('Method Not Allowed');
   }
 
- 
- 
+  const courseImages = ["1.png", "2.png", "3.png", "4.png", "5.png"];
+
+  const randomIndex = Math.floor(Math.random() * courseImages.length);
+
   
   const { title, description, bookName, content, summary, userId  } = req.body;
   const { db } = await connectToDatabase();
@@ -23,6 +25,7 @@ export default async function handler(req, res) {
     content,
     createdBy,
     summary,
+    imageUrl: courseImages[randomIndex],
   };
   const courseCreationResult = await db.collection('courses').insertOne(newCourse);
   const courseId = courseCreationResult.insertedId;

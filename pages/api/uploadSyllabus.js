@@ -63,7 +63,6 @@ router.post(upload.single("file"), async (req, res) => {
   const client = new DocumentAnalysisClient(endpoint, credential);
 
   try {
-    // Call Azure service using the file buffer
     const poller = await client.beginAnalyzeDocument("Alchemi3", fileBuffer);
     const result = await poller.pollUntilDone();
     const textContent = result.content;

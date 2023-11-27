@@ -5,12 +5,12 @@ import { ObjectId } from 'mongodb'; // Import ObjectId
 export default async function handler(req, res) {
   // Extract token from the Authorization header
  
-  const userId  = req.body;
+  const { userId } = req.body;
 
- 
+  const { db } = await connectToDatabase();
+
 
   try {
-    const { db } = await connectToDatabase();
     const objectId = new ObjectId(userId);
 
     const courses = await db.collection('courses').find({ createdBy: objectId }).toArray();

@@ -18,34 +18,38 @@ const Chat = ({ searchParams }) => {
   const sessionId = useRef(uuidv4());
   const router = useRouter();
   const courseId = searchParams.id;
+  const [userId, setUserId] = useState(null);
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+      const localUserId = localStorage.getItem('userId');
+      console.log('Local Storage UserId:', localUserId); // Debug log
+      setUserId(localUserId);
+    }
+  }, []);
   useEffect(() => {
     // Wait until the router is ready and then access the query parameters
     // Now we can safely destructure courseId
     async function fetchData() {
       try {
-        let userId; // Declare userId outside the conditional block
-
-        if (typeof window !== "undefined") {
-          userId = localStorage.getItem("userId"); // Assign value inside the block
-        }
+     
         const [userRes, courseRes] = await Promise.all([
           fetch("/api/getUser", {
             method: "POST",
             headers: {
-              "Content-Type": "text/plain",
+              'Content-Type': 'application/json',
               // Include an Authorization header if you are using a token-based auth
               // 'Authorization': `Bearer ${userToken}`,
             },
-            body: userId,
+            body:  JSON.stringify({  userId }) ,
           }),
           fetch("/api/getUserCourses", {
             method: "POST",
             headers: {
-              "Content-Type": "text/plain",
+              'Content-Type': 'application/json',
               // Include an Authorization header if you are using a token-based auth
               // 'Authorization': `Bearer ${userToken}`,
             },
-            body: userId,
+            body:  JSON.stringify({  userId }) ,
           }),
         ]);
 
@@ -75,7 +79,7 @@ const Chat = ({ searchParams }) => {
     if (searchParams.id) {
       fetchData();
     }
-  }, [router.isReady, router.query]); // Dependency array with courseId ensures fetch runs only when courseId changes
+  }, [router.isReady, router.query, userId]); // Dependency array with courseId ensures fetch runs only when courseId changes
 
   useEffect(() => {
     messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });

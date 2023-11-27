@@ -128,7 +128,8 @@ const Sidebar = () => {
 
   const handleLogout = () => {
     // Redirect the user to the homepage
-    router.push("/");
+    router.push("/components/login");
+    localStorage.removeItem('userId');
 
     // Add a delay (e.g., 2 seconds) before setting user to null
     const delay = 7000; // 2 seconds

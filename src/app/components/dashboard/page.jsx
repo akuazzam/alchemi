@@ -9,17 +9,20 @@ import Image from "next/image"; // Corrected import statement
 const Dashboard = () => {
   const [courses, setCourses] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
+  const [userId, setUserId] = useState(null);
 
   const router = useRouter();
 
   const handleAddCourse = () => {
     router.push("/components/addCourse"); // Replace with actual path
   };
-  let userId; // Declare userId outside the conditional block
-
-  if (typeof window !== 'undefined') {
-    userId = localStorage.getItem('userId'); // Assign value inside the block
-  }
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+      const localUserId = localStorage.getItem('userId');
+      console.log('Local Storage UserId:', localUserId); // Debug log
+      setUserId(localUserId);
+    }
+  }, []);
   useEffect(() => {
     const fetchCourses = async () => {
       setIsLoading(true);
@@ -28,11 +31,11 @@ const Dashboard = () => {
         const response = await fetch("/api/getUserCourses", {
           method: "POST",
           headers: {
-            "Content-Type": "text/plain",
+            'Content-Type': 'application/json',
             // Include an Authorization header if you are using a token-based auth
             // 'Authorization': `Bearer ${userToken}`,
           },
-          body: userId,
+          body: JSON.stringify({  userId }),
         });
         if (response.ok) {
           const data = await response.json();
@@ -51,7 +54,7 @@ const Dashboard = () => {
     };
 
     fetchCourses();
-  }, []);
+  }, [userId]);
 
   return (
     <div className={styles.container}>

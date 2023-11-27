@@ -55,11 +55,15 @@ const settingsMenuItem = {
  
 const Sidebar = () => {
   const [user, setUser] = useState({ name: "Loading..." });
-  let userId; // Declare userId outside the conditional block
+  const [userId, setUserId] = useState(null);
 
-  if (typeof window !== 'undefined') {
-    userId = localStorage.getItem('userId'); // Assign value inside the block
-  }
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+      const localUserId = localStorage.getItem('userId');
+      console.log('Local Storage UserId:', localUserId); // Debug log
+      setUserId(localUserId);
+    }
+  }, []);
   useEffect(() => {
     const fetchUserData = async () => {
       try {
@@ -67,11 +71,11 @@ const Sidebar = () => {
         const response = await fetch('/api/getUser', {
           method: 'POST',
           headers: {
-            'Content-Type': 'text/plain',
+            'Content-Type': 'application/json',
             // Include an Authorization header if you are using a token-based auth
             // 'Authorization': `Bearer ${userToken}`,
           },
-          body:  userId ,
+          body:  JSON.stringify({  userId }) ,
         });
         if (!response.ok) {
           throw new Error('Failed to fetch user');
@@ -84,7 +88,19 @@ const Sidebar = () => {
     };
 
     fetchUserData();
-  }, []);
+  }, [userId]);
+  const handleLogout = () => {
+    // Redirect the user to the homepage
+    router.push("/components/login");
+    localStorage.removeItem('userId');
+
+    // Add a delay (e.g., 2 seconds) before setting user to null
+    const delay = 7000; // 2 seconds
+
+    setTimeout(() => {
+      setUser(null);
+    }, delay);
+  };
   return (
 <div className={styles.container}>
 <span className={styles.userHeader}> <SiAlchemy />               Alchemi</span>
@@ -101,7 +117,7 @@ const Sidebar = () => {
 </ul>
 <div className={styles.bottomItems}>
 <MenuLink item={settingsMenuItem} />
-<button className={styles.logout}>
+<button className={styles.logout} onClick={handleLogout}>
 <MdLogout /> Logout
 </button>
 </div>

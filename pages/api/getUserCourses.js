@@ -5,32 +5,24 @@ import { ObjectId } from 'mongodb'; // Import ObjectId
 
 export default async function handler(req, res) {
   // Extract token from the Authorization header
-  const authHeader = req.headers.authorization || '';
-  const token = authHeader.startsWith('Bearer ') ? authHeader.substring(7) : null;
-console.log(token)
-console.log(authHeader)
+  const app = new Realm.App({ id: process.env.NEXT_PUBLIC_REALM_APP_ID });
+  const user = app.currentUser;
+  
+  const userId = user.id;
 
  
-  // Initialize the Realm app
-  const app = new Realm.App({ id: process.env.NEXT_PUBLIC_REALM_APP_ID });
 
-  try {
-    // Verify the token
-    const user = app.currentUser;
-    
-
-    // if (!user) {
-    //   throw new Error('No user');
-    // }
-    console.log(user)
-
-    const userId = user._id;
     const { db } = await connectToDatabase();
     const objectId = new ObjectId(userId);
 
+
+    // Replace 'createdBy' with the actual field name used in your collection
     const courses = await db.collection('courses').find({ createdBy: objectId }).toArray();
-    res.status(200).json(courses);
-  } catch (error) {
-    return res.status(401).json({ error: 'Unauthorized: ' + error.message });
-  }
-}
+   
+    if (!courses) {
+      return res.status(404).json({ error: 'User not found' });
+    }
+  
+  res.status(200).json(courses);
+} 
+ 

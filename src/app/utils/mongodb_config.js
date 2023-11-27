@@ -7,6 +7,8 @@ const client = new MongoClient(uri, {
     version: ServerApiVersion.v1,
     strict: true,
     deprecationErrors: true,
+    tls: true, // Enable TLS by setting this option
+  tlsAllowInvalidCertificates: true, // NOT recommended for production use
   }
 });
 

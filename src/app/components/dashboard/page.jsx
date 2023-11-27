@@ -20,21 +20,11 @@ const Dashboard = () => {
   useEffect(() => {
     const fetchCourses = async () => {
       setIsLoading(true);
-      const token = localStorage.getItem('token');
-      if (!token) {
-        console.error('No token available.');
-        setIsLoading(false);
-        return;
-      }
   
       try {
         const response = await fetch("/api/getUserCourses", {
-          headers: {
-            'Authorization': `Bearer ${localStorage.getItem('token')}`,
-            // Add any other headers your API requires
-          },
+        
         });
-        console.log(localStorage.getItem('token'))
         if (response.ok) {
           const data = await response.json();
           setCourses(data);

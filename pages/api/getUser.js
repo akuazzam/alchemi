@@ -1,13 +1,10 @@
 import { connectToDatabase } from '@/app/utils/mongodb_config';
-import * as Realm from 'realm-web';
 import { ObjectId } from 'mongodb'; // Import ObjectId
 
 export default async function handler(req, res) {
-  const app = new Realm.App({ id: process.env.NEXT_PUBLIC_REALM_APP_ID });
-  const user = app.currentUser;
+  const userId  = req.body;
 
- 
-  const userId = user.id;
+
 
 
   const { db } = await connectToDatabase();

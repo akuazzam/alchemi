@@ -11,23 +11,32 @@ const Dashboard = () => {
   const [courses, setCourses] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
 
+
   const router = useRouter();
 
   const handleAddCourse = () => {
     router.push("/components/addCourse"); // Replace with actual path
   };
+  const userId = localStorage.getItem('userId'); // Assuming this is just the user ID string, not an object
 
   useEffect(() => {
     const fetchCourses = async () => {
       setIsLoading(true);
-  
+     
       try {
         const response = await fetch("/api/getUserCourses", {
-        
+          method: 'POST',
+          headers: {
+            'Content-Type': 'text/plain',
+            // Include an Authorization header if you are using a token-based auth
+            // 'Authorization': `Bearer ${userToken}`,
+          },
+          body:  userId ,
         });
         if (response.ok) {
           const data = await response.json();
           setCourses(data);
+          console.log(course)
         } else {
           // If the response is not OK, handle the error
           throw new Error(`Error fetching courses: ${response.statusText}`);
@@ -63,7 +72,7 @@ const Dashboard = () => {
                   alt={course.title}
                   className={styles.cardImage}
                 />
-                <h3 className={styles.cardTitle}>{course.Title}</h3>
+                <h3 className={styles.cardTitle}>{course.title}</h3>
               </Link>
             </div>
           ))}

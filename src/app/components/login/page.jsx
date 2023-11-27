@@ -18,7 +18,6 @@ export default function LoginPage() {
     e.preventDefault();
     try {
       setIsLoading(true);
-      const user = app.currentUser;
       const response = await fetch("/api/Login", {
         // Update with your actual API endpoint
         method: "POST",
@@ -30,8 +29,7 @@ export default function LoginPage() {
       const data = await response.json(); // Parse the JSON response
 
       if (response.ok) {
-     
-        localStorage.setItem("token", data.accessToken);
+        localStorage.setItem('userId', data.userId);
         router.push("/components/dashboard"); // Update with your actual main page route
       } else {
         console.error("Login failed");

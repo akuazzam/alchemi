@@ -3,10 +3,8 @@ import React, { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import styles from "@/app/components/Ui/login/signup/profile/profile.module.css";
 import CircularProgress from "@mui/material/CircularProgress";
-import Dashboard from '@/app/components/dashboard/page';
+import Dashboard from "@/app/components/dashboard/page";
 import { SiAlchemy } from "react-icons/si";
-import * as Realm from 'realm-web';
-
 
 const ProfileCreation = () => {
   const [isLoading, setIsLoading] = useState(false);
@@ -17,11 +15,12 @@ const ProfileCreation = () => {
     email: "",
   });
 
+
   // State to hold the router object
   const router = useRouter();
 
   // useEffect to ensure useRouter is called in the client-side environment
-
+  
   const handleChange = (event) => {
     const { name, value } = event.target;
 
@@ -35,29 +34,27 @@ const ProfileCreation = () => {
     setIsLoading(true);
 
     event.preventDefault();
+    const userId = localStorage.getItem('userId'); // Assuming this is just the user ID string, not an object
+
     const userData = {
       Name: formData.name,
       Email: formData.email,
       Major: formData.major,
       School: formData.school,
+      User: userId,
     };
-    console.log("Sending user data:", userData);
 
+    // Get the current logged-in user
     try {
-      const app = new Realm.App({ id: process.env.NEXT_PUBLIC_REALM_APP_ID });
-      const user = app.currentUser;
-      const token = user ? user._accessToken : null;
       const response = await fetch("/api/createUser", {
         // Adjust the endpoint as needed
         method: "POST",
         headers: {
           "Content-Type": "application/json",
-          'Authorization': `Bearer ${token}`,
-
         },
         body: JSON.stringify(userData),
       });
-     
+
       if (!response.ok) {
         throw new Error(`HTTP error! status: ${response.status}`);
       }
@@ -76,7 +73,9 @@ const ProfileCreation = () => {
   return (
     <div>
       <header className={styles.header}>
-        <div className={styles.brandName}><SiAlchemy />    Alchemi</div>
+        <div className={styles.brandName}>
+          <SiAlchemy /> Alchemi
+        </div>
       </header>
       <div className={styles.container}>
         <form className={styles.form} onSubmit={handleSubmit}>

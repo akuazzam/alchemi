@@ -1,6 +1,6 @@
-import * as Realm from 'realm-web';
 import { connectToDatabase } from '@/app/utils/mongodb_config';
 import User from '../../models/User';
+import { ObjectId } from 'mongodb'; // Add this line to import ObjectId
 
 export default async function handler(req, res) {
 
@@ -8,36 +8,27 @@ export default async function handler(req, res) {
     return res.status(405).end('Method Not Allowed');
   }
 
-  // Initialize the Realm app
-  const app = new Realm.App({ id: process.env.NEXT_PUBLIC_REALM_APP_ID });
-
-  // Get the current logged-in user
-  const user = app.currentUser;
-
-  // If there is no user, return unauthorized
-  if (!user) {
-    return res.status(401).json({ error: 'Unauthorized' });
-  }
-
+ 
   // Retrieve user ID
-  const userId = user.id;
 
   const {db} = await connectToDatabase();
   
-  const { Name, Email, Major, School} = req.body;
   const name = req.body.Name;
   const email = req.body.Email;
   const major = req.body.Major;
   const school = req.body.School;
+  const users = req.body.User;
+
+  const user = new ObjectId(users);
 
 
-  const newUser = new User({
+  const newUser =  {
     name,
     email,
     major,
     school,
-    user: userId
-  });
+    user
+  };
 
    await db.collection('users').insertOne(newUser);
   res.status(201).json({ message: 'User created successfully' });

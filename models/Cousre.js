@@ -3,11 +3,11 @@ const mongoose = require('mongoose');
 const { Schema } = mongoose;
 
 const courseSchema = new Schema({
-  Title: { type: String, required: true },
-  Description: String,
-  BookName: String,
-  Content: String,
-  Summary: String,
+  title: { type: String, required: true },
+  description: String,
+  bookName: String,
+  content: String,
+  summary: String,
   createdBy: {
     type: mongoose.Schema.Types.ObjectId,
 ref: 'User'

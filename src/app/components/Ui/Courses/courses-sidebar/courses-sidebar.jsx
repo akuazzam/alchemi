@@ -55,17 +55,20 @@ const settingsMenuItem = {
  
 const Sidebar = () => {
   const [user, setUser] = useState({ name: "Loading..." });
+  const userId = localStorage.getItem('userId'); // Assuming this is just the user ID string, not an object
+
   useEffect(() => {
     const fetchUserData = async () => {
       try {
-        const app = new Realm.App({ id: process.env.NEXT_PUBLIC_REALM_APP_ID });
-        const user = app.currentUser; // Make sure 'app' is imported and 'currentUser' is authenticated
-        const token = user ? user._accessToken : null; // Replace 'accessToken' with the correct token property      
+       
         const response = await fetch('/api/getUser', {
+          method: 'POST',
           headers: {
-            'Authorization': `Bearer ${token}`,
-            // Add any other headers your API requires
+            'Content-Type': 'text/plain',
+            // Include an Authorization header if you are using a token-based auth
+            // 'Authorization': `Bearer ${userToken}`,
           },
+          body:  userId ,
         });
         if (!response.ok) {
           throw new Error('Failed to fetch user');

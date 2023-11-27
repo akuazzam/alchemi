@@ -19,14 +19,12 @@ const SignUp = () => {
     setIsLoading(true);
 
     try {
-      const app = new Realm.App({ id: process.env.NEXT_PUBLIC_REALM_APP_ID });
-      const user = app.currentUser;
-      const token = user ? user._accessToken : null;
+  
+   
       const response = await fetch("/api/signUp", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
-          'Authorization': `Bearer ${token}`,
 
         },
         body: JSON.stringify({ email, password }),

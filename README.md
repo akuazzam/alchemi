@@ -23,10 +23,10 @@ We are particularly proud of creating an intuitive and user-friendly interface t
 Looking ahead, we plan to expand Alchemi's capabilities to include more subjects and learning styles. We aim to incorporate more advanced AI features like Quiz generation and flashcards. Collaborations with educational institutions for content and resource expansion are also on the horizon. Our ultimate goal is to make Alchemi a go-to platform for learners of all ages and backgrounds.
 
 ## Built With
--azureaiservices
--azuredevops
--mongodb
--nextj
--realm
+- azureaiservices
+- azuredevops
+- mongodb
+- nextj
+- realm
 ## Try it out
- alchemi.netlify.com
+ [Alchemi](alchemi.netlify.com)
